@@ -3,7 +3,7 @@ library(dplyr)
 library(maps)
 
 # Retrieve Data
-player_colleges_html = htmlParse("https://raw.githubusercontent.com/diana-ly/Stats/master/Project%20Files/colleges.html")
+player_colleges_html = htmlParse("http://www.basketball-reference.com/friv/colleges.cgi")
 US_colleges = read.csv("https://raw.githubusercontent.com/diana-ly/Stats/master/Project%20Files/US%20Colleges.csv", 
                        stringsAsFactors = FALSE)
 
@@ -18,7 +18,7 @@ player_colleges <- xpathSApply(
 
 
 player_colleges <- gsub("\n", "", player_colleges)
-player_colleges <- as.data.frame(college_list, stringsAsFactors = FALSE)
+player_colleges <- as.data.frame(player_colleges, stringsAsFactors = FALSE)
 colnames(player_colleges) <- c("institution.name")
 
 
