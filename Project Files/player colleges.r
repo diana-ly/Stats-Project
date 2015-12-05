@@ -1,20 +1,28 @@
 library(XML)
 library(dplyr)
+library(maps)
 
-setwd("/Users/Diana/Google Drive/Stats 133 Project")
+# Retrieve Data
+player_colleges_html = htmlParse("https://raw.githubusercontent.com/diana-ly/Stats/master/Project%20Files/colleges.html")
+US_colleges = read.csv("https://raw.githubusercontent.com/diana-ly/Stats/master/Project%20Files/US%20Colleges.csv", 
+                       stringsAsFactors = FALSE)
 
-x = htmlParse("colleges.html")
-US_colleges = read.csv("US Colleges.csv", stringsAsFactors = FALSE)
+# Cleaning Data
 US_colleges = US_colleges[ , c("institution.name", "Longitude", "Latitude")]
 
-college_list <- xpathSApply(
-  doc = x,
+player_colleges <- xpathSApply(
+  doc = player_colleges_html,
   path = '//select[@class="chosen_select"]/option',
   fun = xmlValue
 )
 
 
-college_list <- gsub("\n", "", college_list)
-college_list <- as.data.frame(college_list, stringsAsFactors = FALSE)
-colnames(college_list) <- c("institution.name")
+player_colleges <- gsub("\n", "", player_colleges)
+player_colleges <- as.data.frame(college_list, stringsAsFactors = FALSE)
+colnames(player_colleges) <- c("institution.name")
 
+
+# Graph Code
+par(mar = c(1, 1, 1, 1))
+map("state", boundary = TRUE, interior = TRUE, lty = 1, add = FALSE)
+points(colleges$Longitude, colleges$Latitude, pch = 20, cex = 0.1)
