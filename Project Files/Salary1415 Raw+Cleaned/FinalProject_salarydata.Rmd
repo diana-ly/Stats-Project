@@ -1,0 +1,69 @@
+---
+title: "Final project_salary"
+author: "Laura Kim"
+date: "2015³â 12¿ù 3ÀÏ"
+output: word_document
+---
+```{r}
+entiredata <- read.csv("C:/Users/Laura Kim/Downloads/contracts_players_contracts.csv")
+View(entiredata)
+salary1516 <- entiredata[,c(2,3,4)]
+colnames(salary1516) <- c("Player", "Team", "Salary15-16")
+salary1516[2] <- sort(salary1516$Team)
+salary1516 <- salary1516[order(salary1516$Team),]
+salary1516 <- salary1516[-c(1:25),]
+```
+
+```{r}
+first <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (1).csv")
+second <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (2).csv")
+third <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (3).csv")
+fourth <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (4).csv")
+fifth <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (5).csv")
+sixth <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (6).csv")
+seventh <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (7).csv")
+eighth <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (8).csv")
+nineth <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (9).csv")
+tenth <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (10).csv")
+eleventh <- read.csv("C:/Users/Laura Kim/OneDrive/LAURA/University of California Berkeley/CLASSES/FALL 15/STAT 133/Final Project/magic (11).csv")
+
+first <- first[,c(3,5,8,10)]
+second <- second[,c(3,5,8,10)]
+third <- third[,c(3,5,8,10)]
+fourth <- fourth[,c(3,5,8,10)]
+fifth <- fifth[,c(3,5,8,10)]
+sixth <- sixth[,c(3,5,8,10)]
+seventh <- seventh[,c(3,5,8,10)]
+eighth <- eighth[,c(3,5,8,10)]
+nineth <- nineth[,c(3,5,8,10)]
+tenth <- tenth[,c(3,5,8,10)]
+eleventh <- eleventh[,c(3,5,8,10)]
+
+
+
+
+salary1415 <- rbind(first, second, third, fourth, fifth, sixth, seventh, eighth, nineth, tenth, eleventh)
+colnames(salary1415) <- c("Player", "Position", "Team", "Salary14-15")
+salary1415 <- salary1415[order(salary1415$Team),]
+salary1415 <- salary1415[-c(1:44),]
+
+write.csv(salary1415, "salary1415.csv")
+
+
+
+
+
+
+
+```{r}
+
+```
+
+
+```{r}
+roster <- read.csv("https://raw.githubusercontent.com/diana-ly/Stats/master/Project%20Files/roster", stringsAsFactors = F, na.strings = NA)
+
+
+
+```
+
