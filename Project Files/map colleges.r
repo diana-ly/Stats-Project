@@ -1,5 +1,6 @@
 library(dplyr)
 library(maps)
+library(ggplot2)
 
 roster <- read.csv("https://raw.githubusercontent.com/diana-ly/Stats/master/Project%20Files/roster",
                    stringsAsFactors = F, na.strings = NA)
@@ -201,10 +202,25 @@ player_colleges$Longitude[pcc == "Utah Valley State College"] <-
 player_colleges$Latitude[pcc == "Utah Valley State College"] <- 
   US_colleges$Latitude[grep("(Utah Valley University)", usc)] 
 
+for (i in 1:length(rownames(player_colleges))) {
+  if (player_colleges$College[i] == "") {
+    player_colleges$College[i] <- "No college / university"
+  }
+}
+
+college_table <- as.data.frame(table(player_colleges$College), stringsAsFactors = F)
+colnames(college_table) <- c("College", "Total_Players")
+player_colleges <- left_join(player_colleges, college_table, by = "College")
+top_ten <- subset(player_colleges, Total_Players >= 10 & Total_Players < 100)
+ggplot(top_ten, aes(College, fill = Exp)) + 
+         geom_bar() +
+         coord_flip() +
+         labs(y = "Number of players") +
+  ggtitle("Top Ten Colleges/Universities with the Most NBA Players")
 
 
 par(mar = c(1, 1, 1, 1))
 map("state", boundary = TRUE, interior = TRUE, lty = 1, add = FALSE)
 points(player_colleges$Longitude, player_colleges$Latitude, 
        pch = 20, cex = 0.4, col = "#0000ff")
-
+title("Colleges / Universities that NBA Players Attended")
