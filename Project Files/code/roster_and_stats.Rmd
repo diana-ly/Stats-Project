@@ -145,6 +145,8 @@ player_stats <- do.call(rbind, lapply(team_list, get))
 player_stats <- player_stats[complete.cases(player_stats$Rk), ]
 
 write.csv(roster, file = 'roster.csv')
-write.csv(player_stats, file = 'player stats.csv')
+file.rename("roster.csv", "data/roster.csv")
+write.csv(player_stats, file = 'player_stats.csv')
+file.rename("player_stats.csv", "data/player_stats.csv")
 ```
 

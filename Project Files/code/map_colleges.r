@@ -2,17 +2,24 @@ library(dplyr)
 library(maps)
 library(ggplot2)
 
+
+# Reading and cleaning US Colleges data
+US_colleges_raw <- read.csv("rawdata/US Colleges.csv", 
+                       stringsAsFactors = F)
+US_colleges_raw <- US_colleges_raw[ , c("institution.name", "Longitude", "Latitude")]
+colnames(US_colleges_raw) <- c("College", "Longitude", "Latitude")
+write.csv(US_colleges_raw, 'US_colleges.csv')
+file.rename("US_colleges.csv", "data/US_colleges.csv")
+
+US_colleges <- read.csv("data/US_colleges.csv", stringsAsFactors = F)
 roster <- read.csv("data/roster.csv", stringsAsFactors = F, na.strings = NA)
 
-US_colleges <- read.csv("rawdata/US Colleges.csv", 
-                       stringsAsFactors = F)
-US_colleges <- US_colleges[ , c("institution.name", "Longitude", "Latitude")]
-colnames(US_colleges) <- c("College", "Longitude", "Latitude")
+# Merging US Colleges and Player Colleges
 player_colleges <- left_join(roster, US_colleges, by = "College")
 US_colleges$College <- gsub("-", " ", US_colleges$College)
-
 player_colleges <- left_join(roster, US_colleges, by = "College")
 
+# Cleaning colleges / universities with multiple locations
 pcc <- player_colleges$College
 usc <- US_colleges$College
 
@@ -87,17 +94,17 @@ player_colleges$Latitude[pcc == "St. Bonaventure University"] <-
   US_colleges$Latitude[grep("(St Bonaventure University)", usc)] 
 
 player_colleges$Longitude[pcc == "St. John's University"] <- 
-  US_colleges$Longitude[6209] 
+  US_colleges$Longitude[grep("(St John's University New York)", usc)] 
 player_colleges$Latitude[pcc == "St. John's University"] <- 
-  US_colleges$Latitude[6209] 
+  US_colleges$Latitude[grep("(St John's University New York)", usc)] 
 
 player_colleges$Longitude[pcc == "Texas A&amp;M University"] <- 
-  US_colleges$Longitude[6462] 
+  US_colleges$Longitude[grep("(Texas A & M University College)", usc)] 
 player_colleges$Latitude[pcc == "Texas A&amp;M University"] <- 
-  US_colleges$Latitude[6462] 
+  US_colleges$Latitude[grep("(Texas A & M University College)", usc)] 
 
 player_colleges$Longitude[pcc == "University of Alabama"] <- 
-  US_colleges$Longitude[grep("(University of Alabama in Huntsville)", usc)] 
+  US_colleges$Longitude[grep("(University of Alabama in Huntsville)", usc)]
 player_colleges$Latitude[pcc == "University of Alabama"] <- 
   US_colleges$Latitude[grep("(University of Alabama in Huntsville)", usc)] 
 
@@ -167,9 +174,9 @@ player_colleges$Latitude[pcc == "University of Texas at Austin"] <-
   US_colleges$Latitude[grep("(The University of Texas at Austin)", usc)] 
 
 player_colleges$Longitude[pcc == "University of Montana"] <- 
-  US_colleges$Longitude[grep("The University of Montana", usc)] 
+  US_colleges$Longitude[grep("(The University of Montana)$", usc)] 
 player_colleges$Latitude[pcc == "University of Montana"] <- 
-  US_colleges$Latitude[grep("The University of Montana)", usc)] 
+  US_colleges$Latitude[grep("(The University of Montana)$", usc)] 
 
 player_colleges$Longitude[pcc == "University of Tennessee"] <- 
   US_colleges$Longitude[grep("(The University of Tennessee Knoxville)", usc)] 
@@ -201,12 +208,14 @@ player_colleges$Longitude[pcc == "Utah Valley State College"] <-
 player_colleges$Latitude[pcc == "Utah Valley State College"] <- 
   US_colleges$Latitude[grep("(Utah Valley University)", usc)] 
 
+# Adding 'No college / university' to players who did not attend college
 for (i in 1:length(rownames(player_colleges))) {
   if (player_colleges$College[i] == "") {
     player_colleges$College[i] <- "No college / university"
   }
 }
 
+# Graphing a bar chart of the top ten colleges with the most players
 college_table <- as.data.frame(table(player_colleges$College), stringsAsFactors = F)
 colnames(college_table) <- c("College", "Total_Players")
 player_colleges <- left_join(player_colleges, college_table, by = "College")
@@ -217,7 +226,7 @@ ggplot(top_ten, aes(College, fill = Exp)) +
          labs(y = "Number of players") +
   ggtitle("Top Ten Colleges/Universities with the Most NBA Players")
 
-
+# Graphing a map of colleges that have players
 par(mar = c(1, 1, 1, 1))
 map("state", boundary = TRUE, interior = TRUE, lty = 1, add = FALSE)
 points(player_colleges$Longitude, player_colleges$Latitude, 

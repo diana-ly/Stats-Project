@@ -12,6 +12,11 @@ for (i in 1:11) {
   salaries <- rbind(salaries, salary_on_page)
 }
 
+write.csv(salaries, "raw_salaries.csv")
+file.rename("raw_salaries.csv", "rawdata/raw_salaries.csv")
+
+
+
 titled_rows <- as.numeric(row.names(subset(salaries, X1 == "RK")))
 salaries <- salaries[-c(titled_rows), ]
 salaries <- salaries[ , -c(1)]
