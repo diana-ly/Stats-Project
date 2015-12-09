@@ -1,0 +1,150 @@
+---
+title: "Final Project"
+author: "Stacy J Chang"
+date: "November 30, 2015"
+output: pdf_document
+---
+
+I Data Cleaning
+
+The leading NBA teams in all 6 divisions: Atlantic Division, Central Division, Southeat Division, Northwest Division, Pacific Division, Southwest Division. The teams are Toranto Raptors, Cleveland Cavaliers, Atlanta Hawks, Portland Trail Blazers, Golden State Warriors, and Houston Rockets respectively. We retrieved the csv files of the rosters and each players' stats for the 2014-2015 season from basketball=reference.com. This part of the project is to combine the different team files into one data file. First, the rosters:
+
+```{r}
+# Import all the team files
+hawks_roster <- read.csv('rawdata/Hawks_Roster.csv', stringsAsFactors = F)
+hawks_roster['Team'] <- 'Hawks'
+cavs_roster <- read.csv('rawdata/Cavaliers_Roster.csv', stringsAsFactors = F)
+cavs_roster['Team'] <- 'Cavs'
+raptors_roster <- read.csv('rawdata/Raptors_Roster.csv', stringsAsFactors = F)
+raptors_roster['Team'] <- 'Raptors'
+warriors_roster <- read.csv('rawdata/Warriors_Roster.csv', stringsAsFactors = F)
+warriors_roster['Team'] <- 'Warriors'
+tb_roster <- read.csv('rawdata/TB_Roster.csv', stringsAsFactors = F)
+tb_roster['Team'] <- 'TB'
+rockets_roster <- read.csv('rawdata/Rockets_Roster.csv', stringsAsFactors = F)
+rockets_roster['Team'] <- 'Rockets'
+celtics_roster <- read.csv('rawdata/Celtics_Roster.csv', stringsAsFactors = F)
+celtics_roster['Team'] <- 'Celtics'
+nets_roster <- read.csv('rawdata/Nets_Roster.csv', stringsAsFactors = F)
+nets_roster['Team'] <- 'Nets'
+PH76ers_roster <- read.csv('rawdata/76ers_Roster.csv', stringsAsFactors = F)
+PH76ers_roster['Team'] <- '76ers'
+knicks_roster <- read.csv('rawdata/Knicks_Roster.csv', stringsAsFactors = F)
+knicks_roster['Team'] <- 'Knicks'
+bulls_roster <- read.csv('rawdata/Bulls_Roster.csv', stringsAsFactors = F)
+bulls_roster['Team'] <- 'Bulls'
+bucks_roster <- read.csv('rawdata/Bucks_Roster.csv', stringsAsFactors = F)
+bucks_roster['Team'] <- 'Bucks'
+pacers_roster <- read.csv('rawdata/Pacers_Roster.csv', stringsAsFactors = F)
+pacers_roster['Team'] <- 'Pacers'
+pistons_roster <- read.csv('rawdata/Pistons_Roster.csv', stringsAsFactors = F)
+pistons_roster['Team'] <- 'Pistons'
+wizards_roster <- read.csv('rawdata/Wizards_Roster.csv', stringsAsFactors = F)
+wizards_roster['Team'] <- 'Wizards'
+heat_roster <- read.csv('rawdata/Heat_Roster.csv', stringsAsFactors = F)
+heat_roster['Team'] <- 'Heat'
+hornets_roster <- read.csv('rawdata/Hornets_Roster.csv', stringsAsFactors = F)
+hornets_roster['Team'] <- 'Hornets'
+magic_roster <- read.csv('rawdata/Magic_Roster.csv', stringsAsFactors = F)
+magic_roster['Team'] <- 'Magic'
+thunder_roster <- read.csv('rawdata/Thunder_Roster.csv', stringsAsFactors = F)
+thunder_roster['Team'] <- 'Thunder'
+jazz_roster <- read.csv('rawdata/Jazz_Roster.csv', stringsAsFactors = F)
+jazz_roster['Team'] <- 'Jazz'
+nuggets_roster <- read.csv('rawdata/Nuggets_Roster.csv', stringsAsFactors = F)
+nuggets_roster['Team'] <- 'Nuggets'
+timberwolves_roster <- read.csv('rawdata/Timberwolves_Roster.csv', stringsAsFactors = F)
+timberwolves_roster['Team'] <- 'Timberwolves'
+clippers_roster <- read.csv('rawdata/Clippers_Roster.csv', stringsAsFactors = F)
+clippers_roster['Team'] <- 'Clippers'
+suns_roster <- read.csv('rawdata/Suns_Roster.csv', stringsAsFactors = F)
+suns_roster['Team'] <- 'Suns'
+kings_roster <- read.csv('rawdata/Kings_Roster.csv', stringsAsFactors = F)
+kings_roster['Team'] <- 'Kings'
+lakers_roster <- read.csv('rawdata/Lakers_Roster.csv', stringsAsFactors = F)
+lakers_roster['Team'] <- 'Lakers'
+spurs_roster <- read.csv('rawdata/Spurs_Roster.csv', stringsAsFactors = F)
+spurs_roster['Team'] <- 'Spurs'
+griz_roster <- read.csv('rawdata/Griz_Roster.csv', stringsAsFactors = F)
+griz_roster['Team'] <- 'Griz'
+mavs_roster <- read.csv('rawdata/Mavs_Roster.csv', stringsAsFactors = F)
+mavs_roster['Team'] <- 'Mavs'
+pelicans_roster <- read.csv('rawdata/Pelicans_Roster.csv', stringsAsFactors = F)
+pelicans_roster['Team'] <- 'Pelicans'
+
+team_list <- ls(pattern='_roster')
+roster <- do.call(rbind, lapply(team_list, get))
+
+```
+
+Second: Players' 2014-2015 season stats
+```{r}
+hawks_stats <- read.csv('rawdata/Hawks.csv', stringsAsFactors = F)
+hawks_stats['Team'] <- 'Hawks'
+cavs_stats <- read.csv('rawdata/Cavaliers.csv', stringsAsFactors = F)
+cavs_stats['Team'] <- 'Cavs'
+raptors_stats <- read.csv('rawdata/Raptors.csv', stringsAsFactors = F)
+raptors_stats['Team'] <- 'Raptors'
+warriors_stats <- read.csv('rawdata/Warriors.csv', stringsAsFactors = F)
+warriors_stats['Team'] <- 'Warriors'
+tb_stats <- read.csv('rawdata/TB.csv', stringsAsFactors = F)
+tb_stats['Team'] <- 'TB'
+rockets_stats <- read.csv('rawdata/Rockets.csv', stringsAsFactors = F)
+rockets_stats['Team'] <- 'Rockets'
+celtics_stats <- read.csv('rawdata/Celtics.csv', stringsAsFactors = F)
+celtics_stats['Team'] <- 'Celtics'
+nets_stats <- read.csv('rawdata/Nets.csv', stringsAsFactors = F)
+nets_stats['Team'] <- 'Nets'
+PH76ers_stats <- read.csv('rawdata/76ers.csv', stringsAsFactors = F)
+PH76ers_stats['Team'] <- '76ers'
+knicks_stats <- read.csv('rawdata/Knicks.csv', stringsAsFactors = F)
+knicks_stats['Team'] <- 'Nets'
+bulls_stats <- read.csv('rawdata/Bulls.csv', stringsAsFactors = F)
+bulls_stats['Team'] <- 'Bulls'
+bucks_stats <- read.csv('rawdata/Bucks.csv', stringsAsFactors = F)
+bucks_stats['Team'] <- 'Bucks'
+pacers_stats <- read.csv('rawdata/Pacers.csv', stringsAsFactors = F)
+pacers_stats['Team'] <- 'Pacers'
+pistons_stats <- read.csv('rawdata/Pistons.csv', stringsAsFactors = F)
+pistons_stats['Team'] <- 'Pistons'
+wizards_stats <- read.csv('rawdata/Wizards.csv', stringsAsFactors = F)
+wizards_stats['Team'] <- 'Wizards'
+heat_stats <- read.csv('rawdata/Heat.csv', stringsAsFactors = F)
+heat_stats['Team'] <- 'Heat'
+hornets_stats <- read.csv('rawdata/Hornets.csv', stringsAsFactors = F)
+hornets_stats['Team'] <- 'Hornets'
+magic_stats <- read.csv('rawdata/Magic.csv', stringsAsFactors = F)
+magic_stats['Team'] <- 'Magic'
+thunder_stats <- read.csv('rawdata/Thunder.csv', stringsAsFactors = F)
+thunder_stats['Team'] <- 'Thunder'
+jazz_stats <- read.csv('rawdata/Jazz.csv', stringsAsFactors = F)
+jazz_stats['Team'] <- 'Jazz'
+nuggets_stats <- read.csv('rawdata/Nuggets.csv', stringsAsFactors = F)
+nuggets_stats['Team'] <- 'Nuggets'
+timberwolves_stats <- read.csv('rawdata/Timberwolves.csv', stringsAsFactors = F)
+timberwolves_stats['Team'] <- 'Timberwolves'
+clippers_stats <- read.csv('rawdata/Clippers.csv', stringsAsFactors = F)
+clippers_stats['Team'] <- 'Clippers'
+suns_stats <- read.csv('rawdata/Suns.csv', stringsAsFactors = F)
+suns_stats['Team'] <- 'Suns'
+kings_stats <- read.csv('rawdata/Kings.csv', stringsAsFactors = F)
+kings_stats['Team'] <- 'Kings'
+lakers_stats <- read.csv('rawdata/Lakers.csv', stringsAsFactors = F)
+lakers_stats['Team'] <- 'Lakers'
+spurs_stats <- read.csv('rawdata/Spurs.csv', stringsAsFactors = F)
+spurs_stats['Team'] <- 'Spurs'
+griz_stats <- read.csv('rawdata/Griz.csv', stringsAsFactors = F)
+griz_stats['Team'] <- 'Griz'
+mavs_stats <- read.csv('rawdata/Mavs.csv', stringsAsFactors = F)
+mavs_stats['Team'] <- 'Mavs'
+pelicans_stats <- read.csv('rawdata/Pelicans.csv', stringsAsFactors = F)
+pelicans_stats['Team'] <- 'Pelicans'
+
+team_list <- ls(pattern='_stats')
+player_stats <- do.call(rbind, lapply(team_list, get))
+player_stats <- player_stats[complete.cases(player_stats$Rk), ]
+
+write.csv(roster, file = 'roster.csv')
+write.csv(player_stats, file = 'player stats.csv')
+```
+

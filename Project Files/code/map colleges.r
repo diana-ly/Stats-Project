@@ -2,11 +2,10 @@ library(dplyr)
 library(maps)
 library(ggplot2)
 
-roster <- read.csv("https://raw.githubusercontent.com/diana-ly/Stats/master/Project%20Files/roster",
-                   stringsAsFactors = F, na.strings = NA)
+roster <- read.csv("data/roster.csv", stringsAsFactors = F, na.strings = NA)
 
-US_colleges <- read.csv("https://raw.githubusercontent.com/diana-ly/Stats/master/Project%20Files/US%20Colleges.csv", 
-                       stringsAsFactors = FALSE)
+US_colleges <- read.csv("rawdata/US Colleges.csv", 
+                       stringsAsFactors = F)
 US_colleges <- US_colleges[ , c("institution.name", "Longitude", "Latitude")]
 colnames(US_colleges) <- c("College", "Longitude", "Latitude")
 player_colleges <- left_join(roster, US_colleges, by = "College")
@@ -168,9 +167,9 @@ player_colleges$Latitude[pcc == "University of Texas at Austin"] <-
   US_colleges$Latitude[grep("(The University of Texas at Austin)", usc)] 
 
 player_colleges$Longitude[pcc == "University of Montana"] <- 
-  US_colleges$Longitude[grep("(The University of Montana)", usc)] 
+  US_colleges$Longitude[grep("The University of Montana", usc)] 
 player_colleges$Latitude[pcc == "University of Montana"] <- 
-  US_colleges$Latitude[grep("(The University of Montana)", usc)] 
+  US_colleges$Latitude[grep("The University of Montana)", usc)] 
 
 player_colleges$Longitude[pcc == "University of Tennessee"] <- 
   US_colleges$Longitude[grep("(The University of Tennessee Knoxville)", usc)] 
