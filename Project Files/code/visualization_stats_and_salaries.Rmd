@@ -1,0 +1,84 @@
+---
+title: "Code for Visualization of Player Stats and Salaries"
+output: html_document
+---
+``` {r}
+final_roster <- read.csv("data/final_roster.csv", stringsAsFactors = F)
+```
+
+### DATA VISUALIZATION
+
+#### Correlation Calculation
+```{r}
+corr_eqn <- function(x,y, digits = 2) {
+  corr_coef <- round(cor(x,y), digits = digits)
+  paste("italic(r) == ", corr_coef)
+}
+```
+
+#### 1. POINT GUARD Correlation plot
+```{r}
+library('ggplot2')
+library(scales)
+
+point_guard <- final_roster[final_roster$Pos == 'PG', ]
+ggplot(point_guard, aes(x = point_guard$Salary, y = point_guard$AST)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = 'Salary in USD ($)', y = 'Assist') + 
+  scale_x_continuous(labels = dollar) + 
+  ggtitle('Point Guard Salary and Assist Correlation') +
+  geom_text(aes(x = 15000000, y = 400, label = corr_eqn(point_guard$AST, point_guard$Salary)), parse = TRUE, colour = "#0000FF")
+
+```
+
+#### 2. CENTER Correlation plot
+```{r}
+center <- final_roster[final_roster$Pos == 'C',]
+ggplot(center, aes(x = center$Salary, y = center$ORB)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  scale_x_continuous(labels = dollar) + 
+  labs(x = 'Salary', y = 'Offensive Rebounds') +
+  ggtitle('Center Salary and Rebounds Correlation') +
+  geom_text(aes(x = 2.0e+07, y = 200, label = corr_eqn(center$ORB, center$Salary)), parse = TRUE, colour = "#0000FF")
+
+# PROBLEM: r = NA
+```
+
+#### 3. SMALL FORWARD Correlation plot
+```{r}
+small_forward <- final_roster[final_roster$Pos == 'SF', ]
+ggplot(small_forward, aes(x = small_forward$Salary, y = small_forward$X3P.)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = 'Salary', y = '3 Points Percentage') +
+  scale_x_continuous(labels = dollar) + 
+  ggtitle('Small Forward Salary and 3 Points Percentage Correlation') +
+  geom_text(aes(x = 1.5e+07, y = 0.3, label = corr_eqn(small_forward$X3P, small_forward$Salary)), parse = TRUE, colour = "#0000FF")
+```
+
+#### 4. POWER FORWARD Correlation plot
+```{r}
+power_forward <- final_roster[final_roster$Pos == 'PF', ]
+ggplot(power_forward, aes(x = power_forward$Salary, y = power_forward$TRB)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = 'Salary', y = 'Total Rebounds') +
+  scale_x_continuous(labels = dollar) + 
+  ggtitle('Power Forward Salary and Total Rebounds Correlation') +
+  geom_text(aes(x = 1.5e+07, y = 500, label = corr_eqn(power_forward$TRB, power_forward$Salary)), parse = TRUE, colour = "#0000FF")
+```
+
+#### 5. SHOOTING GUARD Correlation plot
+```{r}
+shooting_guard <- final_roster[final_roster$Pos == 'SG', ]
+ggplot(shooting_guard, aes(x = shooting_guard$Salary, y = shooting_guard$eFG.)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = 'Salary', y = 'Field Goal Percentage') +
+  scale_x_continuous(labels = dollar) + 
+  ggtitle('Shooting Guard Salary and Field Goal Percentage Correlation') +
+  geom_text(aes(x = 2.0e+07, y = 0.4, label = corr_eqn(shooting_guard$eFG., shooting_guard$Salary)), parse = TRUE, colour = "#0000FF")
+```
+

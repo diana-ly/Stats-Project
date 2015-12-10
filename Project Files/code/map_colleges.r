@@ -1,15 +1,11 @@
+# Cleaning US Colleges data
+
 library(dplyr)
-library(maps)
-library(ggplot2)
-
-
-# Reading and cleaning US Colleges data
-US_colleges_raw <- read.csv("rawdata/US Colleges.csv", 
+US_colleges_raw <- read.csv("rawdata/US_Colleges.csv", 
                        stringsAsFactors = F)
 US_colleges_raw <- US_colleges_raw[ , c("institution.name", "Longitude", "Latitude")]
 colnames(US_colleges_raw) <- c("College", "Longitude", "Latitude")
-write.csv(US_colleges_raw, 'US_colleges.csv')
-file.rename("US_colleges.csv", "data/US_colleges.csv")
+write.csv(US_colleges_raw, 'data/US_colleges.csv')
 
 US_colleges <- read.csv("data/US_colleges.csv", stringsAsFactors = F)
 roster <- read.csv("data/roster.csv", stringsAsFactors = F, na.strings = NA)
@@ -19,7 +15,7 @@ player_colleges <- left_join(roster, US_colleges, by = "College")
 US_colleges$College <- gsub("-", " ", US_colleges$College)
 player_colleges <- left_join(roster, US_colleges, by = "College")
 
-# Cleaning colleges / universities with multiple locations
+# Cleaning institutions with multiple locations (inevitable)
 pcc <- player_colleges$College
 usc <- US_colleges$College
 
@@ -215,20 +211,4 @@ for (i in 1:length(rownames(player_colleges))) {
   }
 }
 
-# Graphing a bar chart of the top ten colleges with the most players
-college_table <- as.data.frame(table(player_colleges$College), stringsAsFactors = F)
-colnames(college_table) <- c("College", "Total_Players")
-player_colleges <- left_join(player_colleges, college_table, by = "College")
-top_ten <- subset(player_colleges, Total_Players >= 10 & Total_Players < 100)
-ggplot(top_ten, aes(College, fill = Exp)) + 
-         geom_bar() +
-         coord_flip() +
-         labs(y = "Number of players") +
-  ggtitle("Top Ten Colleges/Universities with the Most NBA Players")
-
-# Graphing a map of colleges that have players
-par(mar = c(1, 1, 1, 1))
-map("state", boundary = TRUE, interior = TRUE, lty = 1, add = FALSE)
-points(player_colleges$Longitude, player_colleges$Latitude, 
-       pch = 20, cex = 0.4, col = "#0000ff")
-title("Colleges / Universities that NBA Players Attended")
+write.csv(player_colleges, "data/player_colleges.csv")
