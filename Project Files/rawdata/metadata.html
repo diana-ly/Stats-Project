@@ -5,16 +5,23 @@
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+    padding: 3px;
 }
 
 body {
 	margin: 10px 10px 10px 10px;
 }
 
+hr {
+  border-width: 2px;
+  border-style: solid;
+}
+
 </style>
 </head>
 
 <body>
+<!-- raw_salaries.csv metadata -->
 <table style="width:60%">
 <p style="width:60%">
 <b>Title:</b> Salary information for NBA players of the 2014-2015 season.<BR>
@@ -28,38 +35,43 @@ body {
   <tr>
     <th style="width:10%">Variable Name</th>
     <th style="width:40%">Variable Description</th>	
-    <th style="width:10%">Units</th>		
-    <th style="width:10%">Storage Type</th>
+    <th style="width:10%">Units</th>
+    <th style="width:15%">Range</th>		
+    <th style="width:15%">Storage Type</th>
   </tr>
   <tr id="RK">
     <td id="Name">RK</td>
     <td id="Description">Ranking of players according to their salary.</td>
-	<td id="Units">n/a</td>			
+	<td id="Units">n/a</td>
+    <td id="Range">1 to 436</td>			
     <td id="Storage">Numeric</td>	
   </tr>
   <tr id="Name">
     <td id="Name">Name</td>
     <td id="Description">First and last name of player followed by their position in their team.</td>	
     <td id="Units">n/a</td>	
+    <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
    <tr id="Team">
     <td id="Name">Team</td>
     <td id="Description">Name of corresponding player's team.</td>
     <td id="Units">n/a</td>		
+    <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
    <tr id="Salary">
     <td id="Name">Salary</td>
     <td id="Description">Player's salary during the NBA season of 2014-2015.</td>
     <td id="Units">USD</td>
+    <td id="Range">29,483 to 23,500,000</td>
     <td id="Storage">Numeric</td>	
   </tr>
 </table>
 <BR>
-<hr style="width:100%; border: 2px solid black">
+<hr width="60%" align="left">
 
-
+<!-- US_Colleges.csv metadata -->
 <table style="width:60%">
 <p style="width:60%">
 <b>Title:</b> United States Institution Information as of 2013<BR>
@@ -72,261 +84,382 @@ body {
 <BR>
   <tr>
     <th style="width:10%">Variable Name</th>
-    <th style="width:40%">Variable Description</th>	
-    <th style="width:10%">Units</th>		
-    <th style="width:10%">Storage Type</th>
+    <th style="width:40%">Variable Description</th> 
+    <th style="width:10%">Units</th>
+    <th style="width:15%">Range</th>    
+    <th style="width:15%">Storage Type</th>
   </tr>
   <tr id="ID">
     <td id="Name">ID</td>
     <td id="Description">Unique identification number for the institution based on guidelines set by the National Center for Education Statistics.</td>
-	<td id="Units">n/a</td>			
+	  <td id="Units">n/a</td>		
+    <td id="Range">100654 to 483212</td>
     <td id="Storage">Numeric</td>	
   </tr>
   <tr id="Institution">
-    <td id="Name">institution.name</td>
+    <td id="Name">institution name</td>
     <td id="Description">Official name of the institution.</td>	
     <td id="Units">n/a</td>	
+    <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
    <tr id="year">
     <td id="Name">year</td>
     <td id="Description">Year of the most updated dataset.</td>
-    <td id="Units">n/a</td>		
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
     <td id="Storage">Numeric</td>	
   </tr>
    <tr id="address">
     <td id="Name">Address</td>
     <td id="Description">Street address of the institution</td>
     <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
     <td id="Storage">Alphanumeric</td>	
   </tr>
      <tr id="city">
     <td id="Name">City</td>
     <td id="Description">City of the institution.</td>
     <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
      <tr id="state">
     <td id="Name">State</td>
     <td id="Description">State of the institution</td>
     <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
      <tr id="zip code">
-    <td id="Name">Zip.code</td>
-    <td id="Description">Zipcode of the institution.</td>
+    <td id="Name">Zip code</td>
+    <td id="Description">Zipcode of the institution. Some zipcodes are extended ZIP+4 codes. NA values are coded as NA.</td>
     <td id="Units">n/a</td>
-    <td id="Storage">Numeric</td>	
+    <td id="Range">n/a</td>
+    <td id="Storage">Alphaumeric</td>	
   </tr>
      <tr id="longitude">
     <td id="Name">Longitude</td>
     <td id="Description">Longitude of the institution.</td>
     <td id="Units">n/a</td>
+    <td id="Range">-170.7427 to 171.3784</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="latitude">
     <td id="Name">Latitude</td>
     <td id="Description">Longitude of the institution.</td>
     <td id="Units">n/a</td>
+    <td id="Range">-14.32259 to 71.32470</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="alias">
-    <td id="Name">HD2013.Institution.name.alias</td>
+    <td id="Name">HD2013 Institution name alias</td>
     <td id="Description">Alieses of the institution's name. NA values are coded as blanks.</td>
     <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
 
 </table>
 <BR>
-<hr style="width:100%; border: 2px solid black">
+<hr width="60%" align="left">
 
-
+<!-- Team.csv metadata -->
 <table style="width:60%">
 <p style="width:60%">
 <b>Title:</b> Player statistics of all NBA players of the 2014-2015 season<BR>
 <b>Dataset ID:</b> [Team].csv ([Team] is replaced by the team mascot or its abbreviation: Raptors, Cavaliers, Hawks, TB, Warriors, Rockets, Celtics, Nets, 76ers, Knicks, Bulls, Bucks, Pacers, Pistons, Wizards, Heat, Hornets, Magic, Thunder, Jazz, Nuggets, Timberwolves, Clippers, Suns, Kings, Lakers, Spurs, Griz, Mavs, Pelicans)<BR>
 <b>Latest Update:</b> December 9, 2015<BR>
-<b>Abstract:</b> The purpose of this dataset is to gather all of the player statistics of all the players of the 2014-2015 NBA season. We will use this dataset to merge with the salary dataset in order to answer our research question (Do the skills of player relate to their salary?). We will analyze the information provided for point guard, center, small forward, power forward, and shooting guard versus salary. <BR>
-<b>Size:</b> 7764 entries, excluding the header<BR>
+<b>Abstract:</b> There are 30 datasets for each team active during the 2014-2015 NBA Season. Each of these team datasets include the team player's name, age, and statistics. The variables are the same for each team dataset. <BR><BR>
+We will be gathering all 30 datasets and merging them together. The purpose of this combined dataset is to have all of player statistics of the 2014-2015 NBA season so it can be used to merge with the salary dataset. The final dataset will consist of the player statistics and salary and will be used to answer our research question (Do the skills of player relate to their salary?). We will analyze the information provided for point guard, center, small forward, power forward, and shooting guard versus salary. <BR>
+<b>Size:</b> 7764 entries total, excluding the header<BR>
 <b>Storage mode:</b> Comma delimited file<BR>
 <b>Header information:</b> There is one main header consisting of Rk, Player, Age, G, GS, MP, FG, FGA, FG%, 3P, 3PA, 3P%, 2P, 2PA, 2P%, eFG%, FT, FTA, FT%, ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS.<BR></p>
 <BR>
   <tr>
     <th style="width:10%">Variable Name</th>
-    <th style="width:40%">Variable Description</th>	
-    <th style="width:10%">Units</th>		
-    <th style="width:10%">Storage Type</th>
+    <th style="width:40%">Variable Description</th> 
+    <th style="width:10%">Units</th>
+    <th style="width:15%">Range</th>    
+    <th style="width:15%">Storage Type</th>
   </tr>
   <tr id="Rk">
     <td id="Name">Rk</td>
     <td id="Description">Order number of player.</td>
-	<td id="Units">n/a</td>			
+	  <td id="Units">n/a</td>
+    <td id="Range">Varies according to number of players on team.</td>			
     <td id="Storage">Numeric</td>	
   </tr>
   <tr id="Player">
     <td id="Name">Player</td>
     <td id="Description">Full name of player</td>	
-    <td id="Units">n/a</td>	
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>	
     <td id="Storage">Character</td>	
   </tr>
    <tr id="Age">
     <td id="Name">Age</td>
-    <td id="Description">Age of player as of 2014-2015.</td>
-    <td id="Units">n/a</td>		
+    <td id="Description">Age of player during the 2014-2015 season.</td>
+    <td id="Units">n/a</td>
+    <td id="Range">19 to 38</td>		
     <td id="Storage">Numeric</td>	
   </tr>
    <tr id="G">
     <td id="Name">G</td>
     <td id="Description">Number of games the player played during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">1 to 83</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="GS">
     <td id="Name">GS</td>
     <td id="Description">Number of games started by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 82</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="MP">
     <td id="Name">MP</td>
     <td id="Description">Total amount of minutes played by the player during the season.</td>
     <td id="Units">n/a</td>
-    <td id="Storage">Character</td>	
+    <td id="Range">1 to 2981</td>
+    <td id="Storage">Numeric</td>	
   </tr>
      <tr id="FG">
     <td id="Name">FG</td>
     <td id="Description">Number of field goals (3-pointers, 2-pointers, and freethrows) made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 659</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="FGA">
     <td id="Name">FGA</td>
     <td id="Description">Number of field goal attempts made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 1471</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="FG%">
     <td id="Name">FG%</td>
     <td id="Description">Field goal percentage (percentage of successful field goals) of the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 1</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="3P">
     <td id="Name">3P</td>
     <td id="Description">Number of 3-point field goals made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 286</td>
     <td id="Storage">Numeric</td>	
   </tr>
   <tr id="3PA">
     <td id="Name">3PA</td>
     <td id="Description">Number of 3-point field goals attempts made by the player during the season.</td>
-	<td id="Units">n/a</td>			
+	  <td id="Units">n/a</td>
+    <td id="Range">0 to 646</td>			
     <td id="Storage">Numeric</td>	
   </tr>
    <tr id="3P%">
     <td id="Name">3P%</td>
     <td id="Description">3-Point field goal percentage of the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 1</td>
     <td id="Storage">Numeric</td>	
   </tr>
   <tr id="2P">
     <td id="Name">2P</td>
     <td id="Description">Number of 2-point field goals made by the player during the season.</td>	
-    <td id="Units">n/a</td>	
+    <td id="Units">n/a</td>
+    <td id="Range">0 to 641</td>	
     <td id="Storage">Numeric</td>	
   </tr>
    <tr id="2PA">
     <td id="Name">2PA</td>
     <td id="Description">Number of 2-point field goals attempts made by the player during the season.</td>
-    <td id="Units">n/a</td>		
+    <td id="Units">n/a</td>
+    <td id="Range">0 to 1310</td>		
     <td id="Storage">Numeric</td>	
   </tr>
    <tr id="2P%">
     <td id="Name">2P%</td>
     <td id="Description">2-point field goal percentage of the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 1</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="eFG%">
     <td id="Name">eFG%</td>
     <td id="Description">Effective field goal percentage of the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 1</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="FT">
     <td id="Name">FT</td>
     <td id="Description">Number of free throws made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 715</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="FTA">
     <td id="Name">FTA</td>
     <td id="Description">Number of free throw attempts made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 824</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="FT%">
     <td id="Name">FT%</td>
     <td id="Description">Free throw percentage of the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 1</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="ORB">
     <td id="Name">ORB</td>
     <td id="Description">Number of offensive rebounds made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 437</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="DRB">
     <td id="Name">DRB</td>
     <td id="Description">Number of defensive rebounds made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 829</td>
     <td id="Storage">Numeric</td>	
   </tr>
   <tr id="TRB">
     <td id="Name">TRB</td>
     <td id="Description">Total number of rebounds made by the player during the season.</td>
-	<td id="Units">n/a</td>			
+	  <td id="Units">n/a</td>
+    <td id="Range">0 to 1226</td>			
     <td id="Storage">Numeric</td>	
   </tr>
   <tr id="AST">
     <td id="Name">AST</td>
     <td id="Description">Number of assists made by the player during the season.</td>	
-    <td id="Units">n/a</td>	
+    <td id="Units">n/a</td>
+    <td id="Range">0 to 838</td>	
     <td id="Storage">Numeric</td>	
   </tr>
    <tr id="STL">
     <td id="Name">STL</td>
     <td id="Description">Number of steals made by the player during the season.</td>
-    <td id="Units">n/a</td>		
+    <td id="Units">n/a</td>
+    <td id="Range">0 to 163</td>		
     <td id="Storage">Numeric</td>	
   </tr>
    <tr id="BLK">
     <td id="Name">BLK</td>
     <td id="Description">Number of blocks made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 200</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="TOV">
     <td id="Name">TOV</td>
     <td id="Description">Number of turnovers made by the player during the season. </td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 321</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="PF">
     <td id="Name">PF</td>
     <td id="Description">Number of personal fouls made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 285</td>
     <td id="Storage">Numeric</td>	
   </tr>
      <tr id="PTS">
     <td id="Name">PTS</td>
     <td id="Description">Total amount of points made by the player during the season.</td>
     <td id="Units">n/a</td>
+    <td id="Range">0 to 2217</td>
     <td id="Storage">Numeric</td>	
   </tr>
 
+</table>
+<BR>
+<hr width="60%" align="left">
+
+<!-- [Team]_Roster.csv metadata -->
+<table style="width:60%">
+<p style="width:60%">
+<b>Title:</b> Player roster of all NBA players during the 2014-2015 NBA season.<BR>
+<b>Dataset ID:</b> [Team]_Roster.csv ([Team] is replaced by the team mascot or its abbreviation: Raptors, Cavaliers, Hawks, TB, Warriors, Rockets, Celtics, Nets, 76ers, Knicks, Bulls, Bucks, Pacers, Pistons, Wizards, Heat, Hornets, Magic, Thunder, Jazz, Nuggets, Timberwolves, Clippers, Suns, Kings, Lakers, Spurs, Griz, Mavs, Pelicans)<BR>
+<b>Latest Update:</b> December 9, 2015<BR>
+<b>Abstract:</b> There are 30 datasets for each team active during the 2014-2015 NBA Season. Each of these team datasets include the team player's number, name, position, height, weight, birth date, years of experience, and name of institution attended. The variables are the same for each team dataset. <BR><BR>
+The purpose of this dataset is to gather the player's name, years of experience, and name of their college so that it can be merged with the longitudes, latitudes, and team names from the other datasets. The final dataset will be used to answer our research question (Which college(s) produced the most and skilled NBA players in the 2014-2015 season?)
+<BR>
+<b>Size:</b> 575 entries, excluding the header<BR>
+<b>Storage mode:</b> Comma delimited file<BR>
+<b>Header information:</b> There is one main header consisting of No., Player, Pos, Ht. Wt, Birth Date, Exp, College.<BR></p>
+<BR>
+  <tr>
+    <th style="width:10%">Variable Name</th>
+    <th style="width:40%">Variable Description</th> 
+    <th style="width:10%">Units</th>
+    <th style="width:15%">Range</th>    
+    <th style="width:15%">Storage Type</th>
+  </tr>
+  <tr id="No">
+    <td id="Name">No.</td>
+    <td id="Description">Player jersey number.</td>
+  <td id="Units">n/a</td>
+    <td id="Range">0 to 99</td>      
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id="Name">
+    <td id="Name">Player</td>
+    <td id="Description">First and last name of player followed by their position in their team.</td> 
+    <td id="Units">n/a</td> 
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+   <tr id="Pos">
+    <td id="Name">Pos</td>
+    <td id="Description">Position of player.</td>
+    <td id="Units">n/a</td>   
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+   <tr id="Height">
+    <td id="Name">Ht</td>
+    <td id="Description">Height of player in the format Feet-Inches.</td>
+    <td id="Units">Feet and inches</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Alphanumeric</td> 
+  </tr>
+  <tr id="Weight">
+    <td id="Name">Wt</td>
+    <td id="Description">Weight of player.</td>
+  <td id="Units">Pounds (lbs)</td>
+    <td id="Range">161 to 360</td>      
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id="Birthdate">
+    <td id="Name">Birth Date</td>
+    <td id="Description">Date of birth of the player in Month/Date/Year format.</td>
+  <td id="Units">n/a</td>
+    <td id="Range">n/a</td>      
+    <td id="Storage">Alphanumeric</td> 
+  </tr>
+  <tr id="Exp">
+    <td id="Name">Exp</td>
+    <td id="Description">Number of years the player has been playing in the NBA. R means the player has retired.</td>
+  <td id="Units">n/a</td>
+    <td id="Range">n/a</td>      
+    <td id="Storage">Alphanumeric</td> 
+  </tr>
+  <tr id="College">
+    <td id="Name">College</td>
+    <td id="Description">Name of institution the player attended.</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>      
+    <td id="Storage">Character</td> 
+  </tr>
 </table>
 </body>
 </html>
