@@ -4,15 +4,16 @@
 Our project is based on information about the basketball players of the National Basketball Assiociation League 2014-2014 season. We will analyze data on basketball players in the 2014-2015 season to answer the following questions:  
 
 1) __Which college(s) produced the most NBA players in the 2014-2015 season?__
+
 2) __Do the skills of player relate to their salary?__
 
 R packages that used for data gathering, cleaning, and analysis are: 
 
 - __dplyr__
 - __ggplot__ 
-- __maps__
 - __rvest__
 - __scales__
+- __stringr__
 
 #### Authors Information:
 __Name, SID, Email__

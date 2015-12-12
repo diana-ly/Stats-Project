@@ -4,15 +4,22 @@ library(dplyr)
 US_colleges <- read.csv("data/US_colleges.csv", stringsAsFactors = F)
 roster <- read.csv("data/roster.csv", stringsAsFactors = F, na.strings = NA)
 
-# Merging US Colleges and Player Colleges
+# Merging US Colleges and Player Colleges first by College names that match,
+# then removing '-' to match a couple more.
 player_colleges <- left_join(roster, US_colleges, by = "College")
 US_colleges$College <- gsub("-", " ", US_colleges$College)
 player_colleges <- left_join(roster, US_colleges, by = "College")
 
-# Cleaning institutions with multiple locations (inevitable)
+# Cleaning institutions with multiple locations, which is inevitable because
+# we do not know which branch of the college a player attended without having
+# to Google the information and double checking the location in US_colleges
+
+# Abbreviated to save space
 pcc <- player_colleges$College
 usc <- US_colleges$College
 
+# After searching which college the player attended, we match based on the full
+# college name from US_colleges
 player_colleges$Longitude[pcc == "Arizona State University"] <- 
   US_colleges$Longitude[grep("Arizona State University Downtown Phoenix", usc)] 
 player_colleges$Latitude[pcc == "Arizona State University"] <- 

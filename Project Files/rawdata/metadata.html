@@ -76,12 +76,12 @@ hr {
 <table style="width:60%">
 <p style="width:60%">
 <b>Title:</b> United States Institution Information as of 2013<BR>
-<b>Dataset ID:</b> US_Colleges.csv (in /rawdata)<BR>
+<b>Dataset ID:</b> US_colleges_raw<BR>
 <b>Latest Update:</b> December 9, 2015<BR>
-<b>Information:</b> This dataset is available for direct download as a ZIP file at this link: <a href="http://nces.ed.gov/ipeds/datacenter/data/HD2014.zip">http://nces.ed.gov/ipeds/datacenter/data/HD2014.zip</a>. Our gathering_colleges.r code downloads this file and extracts the file it contains, which is named "hd2014.csv".<BR>
+<b>Information:</b> This dataset is available for direct download as a ZIP file at this link: <a href="http://nces.ed.gov/ipeds/datacenter/data/HD2014.zip">http://nces.ed.gov/ipeds/datacenter/data/HD2014.zip</a>. Our gathering_colleges.r code downloads this file, names it as US_colleges_raw.zip and extracts the file it contains, which is named "hd2014.csv", and puts it in a CSV format.<BR>
 <b>Abstract:</b> The purpose of this dataset is to get the longitude and latitude coordinates of all licensed institutions in the United States as of 2013. We will use the names of these colleges and universities along with the coordinates to merge it with the roster dataset. This dataset will be used to show which colleges and universities (East vs West) that produced the most NBA players of the 2014-2015 season.<BR>
-<b>Size:</b> 7764 entries, excluding the header<BR>
-<b>Storage mode:</b> Comma delimited file<BR></p>
+<b>Size:</b> 7687 entries, excluding the header<BR>
+<b>Storage mode:</b> ZIP<BR></p>
 <BR>
   <tr>
     <th style="width:10%">Variable Name</th>
@@ -466,11 +466,10 @@ hr {
 <b>Title:</b> Player statistics of all NBA players of the 2014-2015 season<BR>
 <b>Dataset ID:</b> [Team].csv ([Team] is replaced by the team mascot or its abbreviation: Raptors, Cavaliers, Hawks, TB, Warriors, Rockets, Celtics, Nets, 76ers, Knicks, Bulls, Bucks, Pacers, Pistons, Wizards, Heat, Hornets, Magic, Thunder, Jazz, Nuggets, Timberwolves, Clippers, Suns, Kings, Lakers, Spurs, Griz, Mavs, Pelicans)<BR>
 <b>Latest Update:</b> December 9, 2015<BR>
-<b>Information:</b> The 30 team datasets were downloaded directly from the csv link provided at the website <a href="http://www.basketball-reference.com/">http://www.basketball-reference.com/</a> and uploaded onto GitHub so that a direct link can be used to download the data directly. All of the team datasets have the same variables and format as listed below.<BR>
+<b>Information:</b> The 30 team datasets were downloaded directly from the csv link provided at the website <a href="http://www.basketball-reference.com/">http://www.basketball-reference.com/</a> and uploaded onto a GitHub folder so that a direct link can be used to download the data directly. All of the team datasets have the same variables and format as listed below.<BR>
 <b>Abstract:</b> We will be gathering all 30 datasets and merging them together. The purpose of this combined dataset is to have all of player statistics of the 2014-2015 NBA season so it can be used to merge with the salary dataset. The final dataset will consist of the player statistics and salary and will be used to answer our research question (Do the skills of player relate to their salary?). We will analyze the information provided for point guard, center, small forward, power forward, and shooting guard versus salary. <BR>
-<b>Size:</b> 7764 entries total, excluding the header<BR>
-<b>Storage mode:</b> Comma delimited file<BR>
-<b>Header information:</b> There is one main header consisting of Rk, Player, Age, G, GS, MP, FG, FGA, FG%, 3P, 3PA, 3P%, 2P, 2PA, 2P%, eFG%, FT, FTA, FT%, ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS.<BR></p>
+<b>Size:</b> Number of entries vary among teams<BR>
+<b>Storage mode:</b> Comma delimited file<BR></p>
 <BR>
   <tr>
     <th style="width:10%">Variable Name</th>
@@ -481,7 +480,7 @@ hr {
   </tr>
   <tr id="Rk">
     <td id="Name">Rk</td>
-    <td id="Description">Order number of player.</td>
+    <td id="Description">Ranking of player within their own team.</td>
 	  <td id="Units">n/a</td>
     <td id="Range">Varies according to number of players on team.</td>			
     <td id="Storage">Numeric</td>	
@@ -686,13 +685,11 @@ hr {
 <b>Title:</b> Player roster of all NBA players during the 2014-2015 NBA season.<BR>
 <b>Dataset ID:</b> [Team]_Roster.csv ([Team] is replaced by the team mascot or its abbreviation: Raptors, Cavaliers, Hawks, TB, Warriors, Rockets, Celtics, Nets, 76ers, Knicks, Bulls, Bucks, Pacers, Pistons, Wizards, Heat, Hornets, Magic, Thunder, Jazz, Nuggets, Timberwolves, Clippers, Suns, Kings, Lakers, Spurs, Griz, Mavs, Pelicans)<BR>
 <b>Latest Update:</b> December 9, 2015<BR>
-<b>Information:</b> The 30 team datasets were downloaded directly from the csv link provided at the website <a href="http://www.basketball-reference.com/">http://www.basketball-reference.com/</a> and uploaded onto GitHub so that a direct link can be used to download the data directly. All of the team datasets have the same variables and format as listed below.<BR>
-<b>Abstract:</b> There are 30 datasets for each team active during the 2014-2015 NBA Season. Each of these team datasets include the team player's number, name, position, height, weight, birth date, years of experience, and name of institution attended. The variables are the same for each team dataset. <BR><BR>
-The purpose of this dataset is to gather the player's name, years of experience, and name of their college so that it can be merged with the longitudes, latitudes, and team names from the other datasets. The final dataset will be used to answer our research question (Which college(s) produced the most and skilled NBA players in the 2014-2015 season?)
+<b>Information:</b> The 30 team datasets were downloaded directly from the csv link provided at the website <a href="http://www.basketball-reference.com/">http://www.basketball-reference.com/</a> and uploaded onto a GitHub folder so that a link can be used to download the data directly. All of the team datasets have the same variables and format as listed below.<BR>
+<b>Abstract:</b> The purpose of this dataset is to gather the player's name, years of experience, and name of their college so that it can be merged with the longitudes, latitudes, and team names from the other datasets. The final dataset will be used to answer our research question (Which college(s) produced the most and skilled NBA players in the 2014-2015 season?)
 <BR>
-<b>Size:</b> 575 entries, excluding the header<BR>
-<b>Storage mode:</b> Comma delimited file<BR>
-<b>Header information:</b> There is one main header consisting of No., Player, Pos, Ht. Wt, Birth Date, Exp, College.<BR></p>
+<b>Size:</b> Number of entries vary among teams<BR>
+<b>Storage mode:</b> Comma delimited file<BR></p>
 <BR>
   <tr>
     <th style="width:10%">Variable Name</th>

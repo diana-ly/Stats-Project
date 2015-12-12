@@ -1,4 +1,6 @@
-# Gathering and Cleaning the US Colleges data from IPEDS
+# This code is used to obtain the raw US Colleges in ZIP format from NCES
+# The code downloads the file into rawdata, unzips it, extracts the needed columns,
+# renames those columns, and writes it as a cleaned csv in the data directory.
 
 download.file("http://nces.ed.gov/ipeds/datacenter/data/HD2014.zip", 
               "rawdata/US_colleges_raw.zip")
