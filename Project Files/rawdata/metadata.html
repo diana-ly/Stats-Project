@@ -21,16 +21,17 @@ hr {
 </head>
 
 <body>
+
 <!-- raw_salaries.csv metadata -->
 <table style="width:60%">
 <p style="width:60%">
 <b>Title:</b> Salary information for NBA players of the 2014-2015 season.<BR>
 <b>Dataset ID:</b> raw_salaries.csv<BR>
 <b>Latest Update:</b> December 9, 2015<BR>
+<b>Information:</b> This dataset was directly scraped off from the website <a href="http://espn.go.com/nba/salaries/_/year/2015">http://espn.go.com/nba/salaries/_/year/2015</a> and is saved as raw_salaries.csv in the rawdata directory.<BR>
 <b>Abstract:</b> The purpose of this dataset is to gather the salary information for each player in the NBA 2014-2015 season. We will then use the player's name and and their salary to merge it with another dataset consisting of the player statistics. After this, we will be able to do an analysis on the final dataset to answer our research question (Do the skills of player relate to their salary?)<BR>
 <b>Size:</b> 410 entries, excluding the header<BR>
-<b>Storage mode:</b> Comma delimited file<BR>
-<b>Header information:</b> There is one main header consisting of RK, NAME, TEAM, and SALARY that divides every ten (10) entries.<BR></p>
+<b>Storage mode:</b> Comma delimited file<BR></p>
 <BR>
   <tr>
     <th style="width:10%">Variable Name</th>
@@ -77,10 +78,10 @@ hr {
 <b>Title:</b> United States Institution Information as of 2013<BR>
 <b>Dataset ID:</b> US_Colleges.csv (in /rawdata)<BR>
 <b>Latest Update:</b> December 9, 2015<BR>
+<b>Information:</b> This dataset is available for direct download as a ZIP file at this link: <a href="http://nces.ed.gov/ipeds/datacenter/data/HD2014.zip">http://nces.ed.gov/ipeds/datacenter/data/HD2014.zip</a>. Our gathering_colleges.r code downloads this file and extracts the file it contains, which is named "hd2014.csv".<BR>
 <b>Abstract:</b> The purpose of this dataset is to get the longitude and latitude coordinates of all licensed institutions in the United States as of 2013. We will use the names of these colleges and universities along with the coordinates to merge it with the roster dataset. This dataset will be used to show which colleges and universities (East vs West) that produced the most NBA players of the 2014-2015 season.<BR>
 <b>Size:</b> 7764 entries, excluding the header<BR>
-<b>Storage mode:</b> Comma delimited file<BR>
-<b>Header information:</b> There is one main header consisting of ID, institution name, year, Address, City, State, Zip code, Longitude, Latitude, HD2013.Institution name alias.<BR></p>
+<b>Storage mode:</b> Comma delimited file<BR></p>
 <BR>
   <tr>
     <th style="width:10%">Variable Name</th>
@@ -90,74 +91,369 @@ hr {
     <th style="width:15%">Storage Type</th>
   </tr>
   <tr id="ID">
-    <td id="Name">ID</td>
+    <td id="Name">UNITID</td>
     <td id="Description">Unique identification number for the institution based on guidelines set by the National Center for Education Statistics.</td>
 	  <td id="Units">n/a</td>		
-    <td id="Range">100654 to 483212</td>
+    <td id="Range">100636 to 485467</td>
     <td id="Storage">Numeric</td>	
   </tr>
   <tr id="Institution">
-    <td id="Name">institution name</td>
-    <td id="Description">Official name of the institution.</td>	
+    <td id="Name">INSTNM</td>
+    <td id="Description">Institution (entity) name.</td>	
     <td id="Units">n/a</td>	
     <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
-   <tr id="year">
-    <td id="Name">year</td>
-    <td id="Description">Year of the most updated dataset.</td>
-    <td id="Units">n/a</td>
-    <td id="Range">n/a</td>
-    <td id="Storage">Numeric</td>	
-  </tr>
-   <tr id="address">
-    <td id="Name">Address</td>
-    <td id="Description">Street address of the institution</td>
+   <tr id="Address">
+    <td id="Name">ADDR</td>
+    <td id="Description">Street address or post office box.</td>
     <td id="Units">n/a</td>
     <td id="Range">n/a</td>
     <td id="Storage">Alphanumeric</td>	
   </tr>
-     <tr id="city">
-    <td id="Name">City</td>
-    <td id="Description">City of the institution.</td>
+   <tr id="CITY">
+    <td id="Name">CITY</td>
+    <td id="Description">City location of institution</td>
     <td id="Units">n/a</td>
     <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
      <tr id="state">
-    <td id="Name">State</td>
-    <td id="Description">State of the institution</td>
+    <td id="Name">STABBR</td>
+    <td id="Description">State abbreviation.</td>
     <td id="Units">n/a</td>
     <td id="Range">n/a</td>
     <td id="Storage">Character</td>	
   </tr>
      <tr id="zip code">
-    <td id="Name">Zip code</td>
+    <td id="Name">ZIP</td>
     <td id="Description">Zipcode of the institution. Some zipcodes are extended ZIP+4 codes. NA values are coded as NA.</td>
     <td id="Units">n/a</td>
     <td id="Range">n/a</td>
     <td id="Storage">Alphaumeric</td>	
   </tr>
-     <tr id="longitude">
-    <td id="Name">Longitude</td>
-    <td id="Description">Longitude of the institution.</td>
+     <tr id="FIPS">
+    <td id="Name">FIPS</td>
+    <td id="Description">FIPS state code</td>
     <td id="Units">n/a</td>
-    <td id="Range">-170.7427 to 171.3784</td>
+    <td id="Range">1 to 78</td>
     <td id="Storage">Numeric</td>	
   </tr>
-     <tr id="latitude">
-    <td id="Name">Latitude</td>
-    <td id="Description">Longitude of the institution.</td>
+     <tr id="OBEREG">
+    <td id="Name">OBEREG</td>
+    <td id="Description">Geographic region.</td>
     <td id="Units">n/a</td>
-    <td id="Range">-14.32259 to 71.32470</td>
+    <td id="Range">0 to 9</td>
     <td id="Storage">Numeric</td>	
+  <tr id="ID">
+    <td id="CHFNM">CHFNM</td>
+    <td id="Description">Name of chief administrator.</td>
+    <td id="Units">n/a</td>   
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
   </tr>
-     <tr id="alias">
-    <td id="Name">HD2013 Institution name alias</td>
-    <td id="Description">Alieses of the institution's name. NA values are coded as blanks.</td>
+  <tr id="CHFTITLE">
+    <td id="Name">CHFTITLE</td>
+    <td id="Description">Title of chief administrator.</td> 
+    <td id="Units">n/a</td> 
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+   <tr id="GENTELE">
+    <td id="Name">GENTELE</td>
+    <td id="Description">General information telephone number.</td>
+    <td id="Units">n/a</td>
+    <td id="Range">2012002000 to 9.784585e+14</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='EIN'> <td id='EIN'>EIN</td><td id='Description'>Employer Identification Number</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-1 to 996000354</td>
+    <td id="Storage">Numeric</td>  
+  </tr>
+    <tr id='OPEID'> <td id='OPEID'>OPEID</td><td id='Description'>Office of Postsecondary Education (OPE) ID Number</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 82098821</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='OPEFLAG'> <td id='OPEFLAG'>OPEFLAG</td><td id='Description'>OPE Title IV eligibility indicator code</td>
+    <td id="Units">n/a</td>
+    <td id="Range">1 to 8</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='WEBADDR'> <td id='WEBADDR'>WEBADDR</td><td id='Description'>Institution's internet website address</td>
     <td id="Units">n/a</td>
     <td id="Range">n/a</td>
-    <td id="Storage">Character</td>	
+    <td id="Storage">Character</td> 
+  </tr>
+    <tr id='ADMINURL'> <td id='ADMINURL'>ADMINURL</td><td id='Description'>Admissions office web address</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+    <tr id='FAIDURL'> <td id='FAIDURL'>FAIDURL</td><td id='Description'>Financial aid office web address</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+    <tr id='APPLURL'> <td id='APPLURL'>APPLURL</td><td id='Description'>Online application web address</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  <tr id='NPRICURL'> <td id='NPRICURL'>NPRICURL</td><td id='Description'>Net price calculator web address</td>
+    <td id="Units">n/a</td>   
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+  <tr id='VETURL'> <td id='VETURL'>VETURL</td><td id='Description'>Veterans and Military Servicemembers tuition policies web address</td>
+    <td id="Units">n/a</td> 
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+   <tr id='ATHURL'> <td id='ATHURL'>ATHURL</td><td id='Description'>Student-Right-to-Know student athlete graduation rate web address</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+   <tr id='SECTOR'> <td id='SECTOR'>SECTOR</td><td id='Description'>Sector of institution</td>
+    <td id="Units">n/a</td>
+    <td id="Range">0 to 99</td>
+    <td id="Storage">Numeric</td>  
+  </tr>
+    <tr id='ICLEVEL'> <td id='ICLEVEL'>ICLEVEL</td><td id='Description'>Level of institution</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 3</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='CONTROL'> <td id='CONTROL'>CONTROL</td><td id='Description'>Control of institution</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 3</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='HLOFFER'> <td id='HLOFFER'>HLOFFER</td><td id='Description'>Highest level of offering</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 9</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='UGOFFER'> <td id='UGOFFER'>UGOFFER</td><td id='Description'>Undergraduate offering</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 2</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='GROFFER'> <td id='GROFFER'>GROFFER</td><td id='Description'>Graduate offering</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 2</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='HDEGOFR1'> <td id='HDEGOFR1'>HDEGOFR1</td><td id='Description'>Highest degree offered</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 40</td>
+    <td id="Storage">Character</td> 
+  </tr>
+    <tr id='DEGGRANT'> <td id='DEGGRANT'>DEGGRANT</td><td id='Description'>Degree-granting status</td>
+    <td id="Units">n/a</td>   
+    <td id="Range">-3 to 2</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id='HBCU'> <td id='HBCU'>HBCU</td><td id='Description'>Historically Black College or University</td>
+    <td id="Units">n/a</td> 
+    <td id="Range">1 to 2</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+   <tr id='HOSPITAL'> <td id='HOSPITAL'>HOSPITAL</td><td id='Description'>Institution has hospital</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 2</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id='MEDICAL'> <td id='MEDICAL'>MEDICAL</td><td id='Description'>Institution grants a medical degree</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 2</td>
+    <td id="Storage">Numeric</td>  
+  </tr>
+    <tr id='TRIBAL'> <td id='TRIBAL'>TRIBAL</td><td id='Description'>Tribal college</td>
+    <td id="Units">n/a</td>
+    <td id="Range">1 to 2</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='LOCALE'> <td id='LOCALE'>LOCALE</td><td id='Description'>Degree of urbanization (Urban-centric locale)</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 43</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='OPENPUBL'> <td id='OPENPUBL'>OPENPUBL</td><td id='Description'>Institution open to the general public</td>
+    <td id="Units">n/a</td>
+    <td id="Range">0 to 1</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='ACT'> <td id='ACT'>ACT</td><td id='Description'>Status of institution</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+    <tr id='NEWID'> <td id='NEWID'>NEWID</td><td id='Description'>UNITID for merged schools</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-14.32259 to 71.32470</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='DEATHYR'> <td id='DEATHYR'>DEATHYR</td><td id='Description'>Year institution was deleted from IPEDS</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 2014</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id='CLOSEDAT'> <td id='CLOSEDAT'>CLOSEDAT</td><td id='Description'>Date institution closed</td>
+    <td id="Units">n/a</td>   
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+   <tr id='CYACTIVE'> <td id='CYACTIVE'>CYACTIVE</td><td id='Description'>Institution is active in current year</td>
+    <td id="Units">n/a</td>
+    <td id="Range">1 to 3</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+   <tr id='POSTSEC'> <td id='POSTSEC'>POSTSEC</td><td id='Description'>Primarily postsecondary indicator</td>
+    <td id="Units">n/a</td>
+    <td id="Range">1 to 2</td>
+    <td id="Storage">Numeric</td>  
+  </tr>
+    <tr id='PSEFLAG'> <td id='PSEFLAG'>PSEFLAG</td><td id='Description'>Postsecondary institution indicator</td>
+    <td id="Units">n/a</td>
+    <td id="Range">1 to 3</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='PSET4FLG'> <td id='PSET4FLG'>PSET4FLG</td><td id='Description'>Postsecondary and Title IV institution indicator</td>
+    <td id="Units">n/a</td>
+    <td id="Range">1 to 9</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='RPTMTH'> <td id='RPTMTH'>RPTMTH</td><td id='Description'>Reporting method for student charges, graduation rates, retention rates and student financial aid</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 3</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+     <tr id='IALIAS'> <td id='IALIAS'>IALIAS</td><td id='Description'>Institution name alias</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+    <tr id='INSTCAT'> <td id='INSTCAT'>INSTCAT</td><td id='Description'>Institutional category</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 6</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='CCBASIC'> <td id='CCBASIC'>CCBASIC</td><td id='Description'>Carnegie Classification 2010: Basic</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 33</td>
+    <td id="Storage">Numeric</td> 
+  <tr id="ID">
+    <tr id='CCIPUG'> <td id='CCIPUG'>CCIPUG</td><td id='Description'>Carnegie Classification 2010: Undergraduate Instructional Program</td>
+    <td id="Units">n/a</td>   
+    <td id="Range">-3 to 17</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id='CCIPGRAD'> <td id='CCIPGRAD'>CCIPGRAD</td><td id='Description'>Carnegie Classification 2010: Graduate Instructional Program</td>
+    <td id="Units">n/a</td> 
+    <td id="Range">-3 to 18</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+   <tr id='CCUGPROF'> <td id='CCUGPROF'>CCUGPROF</td><td id='Description'>Carnegie Classification 2010: Undergraduate Profile</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 13</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+   <tr id='CCENRPRF'> <td id='CCENRPRF'>CCENRPRF</td><td id='Description'>Carnegie Classification 2010: Enrollment Profile</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 7</td>
+    <td id="Storage">Numeric</td>  
+  </tr>
+    <tr id='CCSIZSET'> <td id='CCSIZSET'>CCSIZSET</td><td id='Description'>Carnegie Classification 2010: Size and Setting</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 18</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+     <tr id='CARNEGIE'> <td id='CARNEGIE'>CARNEGIE</td><td id='Description'>Carnegie Classification 2000</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-3 to 60</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='LANDGRNT'> <td id='LANDGRNT'>LANDGRNT</td><td id='Description'>Land Grant Institution</td>
+    <td id="Units">n/a</td>
+    <td id="Range">1 to 2</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='INSTSIZE'> <td id='INSTSIZE'>INSTSIZE</td><td id='Description'>Institution size category</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 5</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+     <tr id='CBSA'> <td id='CBSA'>CBSA</td><td id='Description'>Core Based Statistical Area (CBSA)</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 49780</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='CBSATYPE'> <td id='CBSATYPE'>CBSATYPE</td><td id='Description'>CBSA Type Metropolitan or Micropolitan</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 2</td>
+    <td id="Storage">Numeric</td> 
+  <tr id="ID">
+    <tr id='CSA'> <td id='CSA'>CSA</td><td id='Description'>Combined Statistical Area (CSA)</td>
+    <td id="Units">n/a</td>   
+    <td id="Range">-2 to 566</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id='NECTA'> <td id='NECTA'>NECTA</td><td id='Description'>New England City and Town Area (NECTA)</td>
+    <td id="Units">n/a</td> 
+    <td id="Range">n/a</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+   <tr id='F1SYSTYP'> <td id='F1SYSTYP'>F1SYSTYP</td><td id='Description'>Multi-institution or multi-campus organization</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 2</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+   <tr id='F1SYSNAM'> <td id='F1SYSNAM'>F1SYSNAM</td><td id='Description'>Name of multi-institution or multi-campus organization</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td>  
+  </tr>
+     <tr id='F1SYSCOD'> <td id='F1SYSCOD'>F1SYSCOD</td><td id='Description'>Identification number of multi-institution or multi-campus organization</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 400010</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+     <tr id='COUNTYCD'> <td id='COUNTYCD'>COUNTYCD</td><td id='Description'>Fips County code</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 78030</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+     <tr id='COUNTYNM'> <td id='COUNTYNM'>COUNTYNM</td><td id='Description'>County name</td>
+    <td id="Units">n/a</td>
+    <td id="Range">n/a</td>
+    <td id="Storage">Character</td> 
+  </tr>
+    <tr id='CNGDSTCD'> <td id='CNGDSTCD'>CNGDSTCD</td><td id='Description'>Congressional district code</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-2 to 7898</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='LONGITUD'> <td id='LONGITUD'>LONGITUD</td><td id='Description'>Longitude location of institution</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-170.7427 to 171.378442</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+    <tr id='LATITUDE'> <td id='LATITUDE'>LATITUDE</td><td id='Description'>Latitude location of institution</td>
+    <td id="Units">n/a</td>
+    <td id="Range">-14.322587 to 71.32470</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id='DFRCGID'> <td id='DFRCGID'>DFRCGID</td><td id='Description'>Data Feedback Report comparison group category created by NCES</td>
+    <td id="Units">n/a</td>   
+    <td id="Range">-2 to 265</td>
+    <td id="Storage">Numeric</td> 
+  </tr>
+  <tr id='DFRCUSCG'> <td id='DFRCUSCG'>DFRCUSCG</td><td id='Description'>Data Feedback Report - Institution submitted a custom comparison group</td>
+    <td id="Units">n/a</td> 
+    <td id="Range">-2 to 2</td>
+    <td id="Storage">Numeric</td> 
   </tr>
 
 </table>
@@ -170,8 +466,8 @@ hr {
 <b>Title:</b> Player statistics of all NBA players of the 2014-2015 season<BR>
 <b>Dataset ID:</b> [Team].csv ([Team] is replaced by the team mascot or its abbreviation: Raptors, Cavaliers, Hawks, TB, Warriors, Rockets, Celtics, Nets, 76ers, Knicks, Bulls, Bucks, Pacers, Pistons, Wizards, Heat, Hornets, Magic, Thunder, Jazz, Nuggets, Timberwolves, Clippers, Suns, Kings, Lakers, Spurs, Griz, Mavs, Pelicans)<BR>
 <b>Latest Update:</b> December 9, 2015<BR>
-<b>Abstract:</b> There are 30 datasets for each team active during the 2014-2015 NBA Season. Each of these team datasets include the team player's name, age, and statistics. The variables are the same for each team dataset. <BR><BR>
-We will be gathering all 30 datasets and merging them together. The purpose of this combined dataset is to have all of player statistics of the 2014-2015 NBA season so it can be used to merge with the salary dataset. The final dataset will consist of the player statistics and salary and will be used to answer our research question (Do the skills of player relate to their salary?). We will analyze the information provided for point guard, center, small forward, power forward, and shooting guard versus salary. <BR>
+<b>Information:</b> The 30 team datasets were downloaded directly from the csv link provided at the website <a href="http://www.basketball-reference.com/">http://www.basketball-reference.com/</a> and uploaded onto GitHub so that a direct link can be used to download the data directly. All of the team datasets have the same variables and format as listed below.<BR>
+<b>Abstract:</b> We will be gathering all 30 datasets and merging them together. The purpose of this combined dataset is to have all of player statistics of the 2014-2015 NBA season so it can be used to merge with the salary dataset. The final dataset will consist of the player statistics and salary and will be used to answer our research question (Do the skills of player relate to their salary?). We will analyze the information provided for point guard, center, small forward, power forward, and shooting guard versus salary. <BR>
 <b>Size:</b> 7764 entries total, excluding the header<BR>
 <b>Storage mode:</b> Comma delimited file<BR>
 <b>Header information:</b> There is one main header consisting of Rk, Player, Age, G, GS, MP, FG, FGA, FG%, 3P, 3PA, 3P%, 2P, 2PA, 2P%, eFG%, FT, FTA, FT%, ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS.<BR></p>
@@ -390,6 +686,7 @@ We will be gathering all 30 datasets and merging them together. The purpose of t
 <b>Title:</b> Player roster of all NBA players during the 2014-2015 NBA season.<BR>
 <b>Dataset ID:</b> [Team]_Roster.csv ([Team] is replaced by the team mascot or its abbreviation: Raptors, Cavaliers, Hawks, TB, Warriors, Rockets, Celtics, Nets, 76ers, Knicks, Bulls, Bucks, Pacers, Pistons, Wizards, Heat, Hornets, Magic, Thunder, Jazz, Nuggets, Timberwolves, Clippers, Suns, Kings, Lakers, Spurs, Griz, Mavs, Pelicans)<BR>
 <b>Latest Update:</b> December 9, 2015<BR>
+<b>Information:</b> The 30 team datasets were downloaded directly from the csv link provided at the website <a href="http://www.basketball-reference.com/">http://www.basketball-reference.com/</a> and uploaded onto GitHub so that a direct link can be used to download the data directly. All of the team datasets have the same variables and format as listed below.<BR>
 <b>Abstract:</b> There are 30 datasets for each team active during the 2014-2015 NBA Season. Each of these team datasets include the team player's number, name, position, height, weight, birth date, years of experience, and name of institution attended. The variables are the same for each team dataset. <BR><BR>
 The purpose of this dataset is to gather the player's name, years of experience, and name of their college so that it can be merged with the longitudes, latitudes, and team names from the other datasets. The final dataset will be used to answer our research question (Which college(s) produced the most and skilled NBA players in the 2014-2015 season?)
 <BR>

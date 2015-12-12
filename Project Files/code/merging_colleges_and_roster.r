@@ -1,12 +1,6 @@
-# Cleaning US Colleges data
+# Merging US Colleges and Roster data
 
 library(dplyr)
-US_colleges_raw <- read.csv("rawdata/US_Colleges.csv", 
-                       stringsAsFactors = F)
-US_colleges_raw <- US_colleges_raw[ , c("institution.name", "Longitude", "Latitude")]
-colnames(US_colleges_raw) <- c("College", "Longitude", "Latitude")
-write.csv(US_colleges_raw, 'data/US_colleges.csv')
-
 US_colleges <- read.csv("data/US_colleges.csv", stringsAsFactors = F)
 roster <- read.csv("data/roster.csv", stringsAsFactors = F, na.strings = NA)
 
