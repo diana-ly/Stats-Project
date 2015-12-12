@@ -28,7 +28,8 @@ for(i in 1:nrow(stats_salary_pos)){
     keep[i] <- F
   }
   else {
-    keep[i] <- Tunique_players <- c(unique_players, stats_salary_pos$Player[i])
+    keep[i] <- T
+    unique_players <- c(unique_players, stats_salary_pos$Player[i])
   }
 }
 

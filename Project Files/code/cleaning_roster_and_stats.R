@@ -5,8 +5,8 @@ team_names <- c('76ers', 'Bucks', 'Bulls', 'Cavaliers', 'Celtics', 'Clippers', '
 roster <- data.frame()
 player_stats <- data.frame()
 for(i in 1:length(team_names)){
-  team <- read.csv(paste0("https://raw.githubusercontent.com/diana-ly/Stats-Project/master/Project%20Files/rawdata/Roster%20Raw%20Data/",team_names[i],"_Roster.csv"))
-  stat <- read.csv(paste0("https://raw.githubusercontent.com/diana-ly/Stats-Project/master/Project%20Files/rawdata/Team%20Stats%20Raw%20Data/",team_names[i],".csv"))
+  team <- read.csv(paste0("rawdata/roster_data/",team_names[i],"_Roster.csv"))
+  stat <- read.csv(paste0("rawdata/stat_data/",team_names[i],".csv"))
   
   team$Team <- team_names[i]
   stat$Team <- team_names[i]
