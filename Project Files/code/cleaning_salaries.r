@@ -1,3 +1,7 @@
+library(stringr)
+
+source("code/download_salaries.R")
+
 salaries <- read.csv("rawdata/raw_salaries.csv", stringsAsFactors = F)
 
 titled_rows <- as.numeric(row.names(subset(salaries, X1 == "RK")))
@@ -13,5 +17,5 @@ salaries$Player <- gsub("(,).*", "", salaries$Player)
 salaries$Salary <- gsub("\\$", "", salaries$Salary)
 salaries$Salary <- as.numeric(gsub(",", "", salaries$Salary))
 
-write.csv(salaries, "data/salaries_1415.csv")
+write.csv(salaries, "data/salaries.csv")
 

@@ -3,7 +3,16 @@ title: "Code for Visualization of Player Stats and Salaries"
 output: html_document
 ---
 ``` {r}
-final_roster <- read.csv("data/final_roster.csv", stringsAsFactors = F)
+library(ggplot2)
+library(scales)
+```
+
+``` {r}
+source("code/cleaning_roster_salary_stats.R")
+```
+
+``` {r}
+final_roster <- read.csv("data/roster_salary_stats.csv", stringsAsFactors = F)
 ```
 
 ### DATA VISUALIZATION
@@ -18,9 +27,6 @@ corr_eqn <- function(x,y, digits = 2) {
 
 #### 1. POINT GUARD Correlation plot
 ```{r}
-library('ggplot2')
-library(scales)
-
 point_guard <- final_roster[final_roster$Pos == 'PG', ]
 ggplot(point_guard, aes(x = point_guard$Salary, y = point_guard$AST)) +
   geom_point() +
@@ -35,15 +41,14 @@ ggplot(point_guard, aes(x = point_guard$Salary, y = point_guard$AST)) +
 #### 2. CENTER Correlation plot
 ```{r}
 center <- final_roster[final_roster$Pos == 'C',]
-ggplot(center, aes(x = center$Salary, y = center$ORB)) +
+ggplot(center, aes(x = center$Salary, y = center$TRB)) +
   geom_point() +
   geom_smooth(method = 'lm') +
   scale_x_continuous(labels = dollar) + 
-  labs(x = 'Salary', y = 'Offensive Rebounds') +
+  labs(x = 'Salary', y = 'Total Rebounds') +
   ggtitle('Center Salary and Rebounds Correlation') +
   geom_text(aes(x = 2.0e+07, y = 200, label = corr_eqn(center$ORB, center$Salary)), parse = TRUE, colour = "#0000FF")
 
-# PROBLEM: r = NA
 ```
 
 #### 3. SMALL FORWARD Correlation plot

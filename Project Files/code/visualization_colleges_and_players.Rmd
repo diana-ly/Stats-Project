@@ -3,17 +3,21 @@ title: "Code for Visualization of Colleges and Players"
 output: html_document
 ---
 ``` {r}
+source("code/gathering_cleaning_colleges.r")
+```
+``` {r}
 library(maps)
 library(ggplot2)
 library(dplyr)
-
+```
+``` {r}
 # Graphing a bar chart of the top ten colleges with the most players
 player_colleges <- read.csv("data/player_colleges.csv")
 college_table <- as.data.frame(table(player_colleges$College),
                                stringsAsFactors = F)
 colnames(college_table) <- c("College", "Total_Players")
 player_colleges <- left_join(player_colleges, college_table, by = "College")
-top_ten <- subset(player_colleges, Total_Players >= 10 & Total_Players < 100)
+top_ten <- subset(player_colleges, Total_Players >= 10 & Total_Players < 80)
 ggplot(top_ten, aes(College, fill = College)) + 
        geom_bar() +
        coord_flip() +
