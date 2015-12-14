@@ -1,32 +1,26 @@
----
-title: "Code for Visualization of Player Stats and Salaries"
-output: html_document
----
-``` {r}
+
+# This code for Visualization of Player Stats and Salaries will output
+# Correlation visualizations for different player stats based on 
+# their positions, in respect to salary
+
 library(ggplot2)
 library(scales)
-```
 
-``` {r}
-source("code/cleaning_roster_salary_stats.R")
-```
+source("./code/functions.r")
+# See functions.r for more details on corr_eqn function used in the plots
 
-``` {r}
-final_roster <- read.csv("data/roster_salary_stats.csv", stringsAsFactors = F)
-```
+# In this case we do not use source to bring multiple R objects, 
+# simply because it takes a little more time,
+# and also most of the sourced data and objects is not necessary. We assume
+# that the project reader has ran `cleaning_roster_salary_stats` file, and have
+# access to the `roster_salary_stats.csv` file.
+final_roster <- 
+  read.csv("./data/roster_salary_stats.csv", stringsAsFactors = F)
 
 ### DATA VISUALIZATION
 
-#### Correlation Calculation
-```{r}
-corr_eqn <- function(x,y, digits = 2) {
-  corr_coef <- round(cor(x,y), digits = digits)
-  paste("italic(r) == ", corr_coef)
-}
-```
-
 #### 1. POINT GUARD Correlation plot
-```{r}
+
 point_guard <- final_roster[final_roster$Pos == 'PG', ]
 ggplot(point_guard, aes(x = point_guard$Salary, y = point_guard$AST)) +
   geom_point() +
@@ -34,12 +28,12 @@ ggplot(point_guard, aes(x = point_guard$Salary, y = point_guard$AST)) +
   labs(x = 'Salary in USD ($)', y = 'Assist') + 
   scale_x_continuous(labels = dollar) + 
   ggtitle('Point Guard Salary and Assist Correlation') +
-  geom_text(aes(x = 15000000, y = 400, label = corr_eqn(point_guard$AST, point_guard$Salary)), parse = TRUE, colour = "#ff0000")
-
-```
+  geom_text(aes(x = 15000000, y = 400, 
+                label = corr_eqn(point_guard$AST,point_guard$Salary)), 
+            parse = TRUE, colour = "#ff0000")
 
 #### 2. CENTER Correlation plot
-```{r}
+
 center <- final_roster[final_roster$Pos == 'C',]
 ggplot(center, aes(x = center$Salary, y = center$TRB)) +
   geom_point() +
@@ -47,14 +41,11 @@ ggplot(center, aes(x = center$Salary, y = center$TRB)) +
   scale_x_continuous(labels = dollar) + 
   labs(x = 'Salary', y = 'Total Rebounds') +
   ggtitle('Center Salary and Rebounds Correlation') +
-  geom_text(aes(x = 2.0e+07, y = 200, 
+  geom_text(aes(x = 1.6e+07, y = 320, 
                 label = corr_eqn(center$ORB, center$Salary)), 
             parse = TRUE, colour = "#ff0000")
 
-```
-
 #### 3. SMALL FORWARD Correlation plot
-```{r}
 small_forward <- final_roster[final_roster$Pos == 'SF', ]
 ggplot(small_forward, aes(x = small_forward$Salary, 
                           y = small_forward$X3P.)) +
@@ -63,11 +54,12 @@ ggplot(small_forward, aes(x = small_forward$Salary,
   labs(x = 'Salary', y = '3 Points Percentage') +
   scale_x_continuous(labels = dollar) + 
   ggtitle('Small Forward Salary and 3 Points Percentage Correlation') +
-  geom_text(aes(x = 1.5e+07, y = 0.3, label = corr_eqn(small_forward$X3P, small_forward$Salary)), parse = TRUE, colour = "#ff0000")
-```
+  geom_text(aes(x = 1.5e+07, y = 0.3, 
+                label = corr_eqn(small_forward$X3P, small_forward$Salary)),
+            parse = TRUE, colour = "#ff0000")
 
 #### 4. POWER FORWARD Correlation plot
-```{r}
+
 power_forward <- final_roster[final_roster$Pos == 'PF', ]
 ggplot(power_forward, aes(x = power_forward$Salary, y = power_forward$TRB)) +
   geom_point() +
@@ -75,11 +67,12 @@ ggplot(power_forward, aes(x = power_forward$Salary, y = power_forward$TRB)) +
   labs(x = 'Salary', y = 'Total Rebounds') +
   scale_x_continuous(labels = dollar) + 
   ggtitle('Power Forward Salary and Total Rebounds Correlation') +
-  geom_text(aes(x = 1.5e+07, y = 500, label = corr_eqn(power_forward$TRB, power_forward$Salary)), parse = TRUE, colour = "#ff0000")
-```
+  geom_text(aes(x = 1.5e+07, y = 500, 
+                label = corr_eqn(power_forward$TRB,power_forward$Salary)),
+            parse = TRUE, colour = "#ff0000")
 
 #### 5. SHOOTING GUARD Correlation plot
-```{r}
+
 shooting_guard <- final_roster[final_roster$Pos == 'SG', ]
 ggplot(shooting_guard, aes(x = shooting_guard$Salary, 
                            y = shooting_guard$eFG.)) +
@@ -88,6 +81,8 @@ ggplot(shooting_guard, aes(x = shooting_guard$Salary,
   labs(x = 'Salary', y = 'Field Goal Percentage') +
   scale_x_continuous(labels = dollar) + 
   ggtitle('Shooting Guard Salary and Field Goal Percentage Correlation') +
-  geom_text(aes(x = 2.0e+07, y = 0.4, label = corr_eqn(shooting_guard$eFG., shooting_guard$Salary)), parse = TRUE, colour = "#ff0000")
-```
+  geom_text(aes(x = 1.3e+07, y = 0.4, 
+                label = corr_eqn(shooting_guard$eFG., shooting_guard$Salary)),
+            parse = TRUE, colour = "#ff0000")
+
 

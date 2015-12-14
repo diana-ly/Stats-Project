@@ -1,0 +1,288 @@
+---
+title: "NBA Data Analysis - Skills, Salaries, and Colleges"
+author: "Jong Ha Lee, Diana Ly, Stacy Chang, Laura Kim"
+date: "December 13, 2015"
+output:
+  pdf_document:
+    fig_height: 3
+    fig_width: 7
+---
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE)
+knitr::opts_knit$set(root.dir = "../")
+```
+
+```{r}
+source("./code/visualization_stats_and_salaries.R")
+source("./code/visualization_colleges_and_players.R")
+```
+
+# Introduction
+Almost at the end of every NBA season, the sports media mainly revolves around salaries and new transfers for seasoned NBA players, who continuously record millons of dollar deals as time passes on. However, are the players really worth the amount of money clubs pay for? How can we measure the "worth" of a player? Although there are many aspects, we believed that one of the main ways to measure a player's "worth" is through analyzing their skill attributes most applicable to their position. Our first part of the analysis focuses on correlating most important skill of each position, to the player's salaries.  
+
+An equally important aspect of NBA is its rookies, and the colleges that breed these potentially legend NBA players in the future. Thus, we thought it would be interesting to analyze which colleges produce the most number of NBA players currently present, and create a map that displays all the colleges of current NBA players. 
+
+Thus, our research question can mainly be detailed in two parts:  
+  1. __In the 2014-2015 season, do the skills of a player correlate to his salary?__  
+  2. __Which college(s) produced the most NBA players in the 2014-2015 season?__  
+
+---
+
+# Part 1: Do the skills of a player correlate to his salary?
+
+## Data Extraction and Cleaning
+
+### Salaries Extraction
+We downloaded our salaries from the [ESPN Website](espn.go.com/nba/salaries/_/year/2015/page), where it displayed a total of 480 player's salaries in the 2014-15 season, in a span of 11 pages. Since the website did not provide a specific data frame format (such as csv), we had to use the R Package rvest, which allows us to download data from html websites. We went through the 11 pages in the ESPN website, and produced a raw csv file raw_salaries.csv which will be used in the future for further data cleaning and analysis. All the outlined process was done in download_salaries.r file. 
+
+Code we used to download data from ESPN website:
+```{r, eval = F, echo = T}
+for (i in 1:11) {
+  page_url <- paste0(webpage, i)
+  salary_on_page <- read_html(page_url) %>%
+                    html_node(".tablehead") %>%
+                    html_table()
+  salaries <- rbind(salaries, salary_on_page)
+}
+```
+
+The Raw CSV produced:
+```{r}
+head(read.csv("./rawdata/raw_salaries.csv"))
+```
+
+### Salaries Cleaning
+After we downloaded our raw data raw_salaries.csv, data cleaning was required. First, we made sure to only have rows with player salary data, since the rawdata contained a row of headers (RK, NAME, TEAM, SALARY) for every page of ESPN website we went through.  
+
+Next, we wanted to separate the player's name and position, which were currently together in the data frame, separated by a comma and a space. `strsplit` function was used, and we created a new column on the data frame, storing the positions.
+
+Lastly, we wanted to convert the `SALARY` column to a numeric, so that further data analysis can be made. This included getting rid of the $ signs and comma's through `gsub` function, and converting the resulting column into a numeric. This cleaned data was exported as salaries.csv in the data folder.
+
+Cleaned data:
+```{r}
+head(read.csv("./data/salaries.csv"))
+```
+
+### Roster and Player Statistics: Data Extraction and Cleaning
+Our main source of data for both roster (which included the player's name, position, college, and other basic information) came from [basketball-reference.com](http://www.basketball-reference.com/). However, a problem was that the data for all 30 teams could only be downloaded via clicking, without producing a link that we can use in R to download or read.csv the data. Thus, we had to take a different approach, as outlined:  
+1. Download the roster and player statistics (Totals) of each team by going into each team's website and clicking on "Export", which downloaded the csv files to our computer.  
+2. Upload the data files into our github repository so anyone can access the raw data via a URL link.  
+
+Thus, though in our rawdata directory the csv files for the teams exist, we never directly used them, and instead used github links to `read.csv` the files.  
+
+In order to avoid copy-and-pasting to `read.csv` the roster and player data, and aggregate all 30 teams' data into two files respectively, we used string manipulation and a vector of all team names to `read.csv` the data from github through a for loop. Then, we had to do a little cleaning of data specifically for player statistics data, where it included Team Total Statistics as well which was not necessary for our analysis.  
+
+The roster data of all 30 teams in the NBA:
+```{r}
+head(read.csv("./data/roster.csv"))
+```
+
+The player statistics data of all 30 teams in the NBA:
+```{r}
+head(read.csv("./data/player_stats.csv"))
+```
+
+### Aggregating Salary, Roster, and Player Statistics Data 
+*Note: Though the cleaned roster data will not be used in this section of the project, we still described roster data and extraction in the previous section, for coherence of data extraction and cleaning method.*  
+
+Finally, we aggregated the Player Statistics and Salary data, using `dplyr` package function `left_join`, aggregating the data based on the player name, or the column `Player`. However, unfortunately ESPN did not have the salary data for all players, and resulted in some players in the new aggregated data set `stats_salary` not having a value for salary. We omitted the players without the salary data for a more accurate representation of our analysis in the future.  
+
+Another problem was that players get traded mid-season, and thus had multiple statistics, in different teams, for the same player. Thus this resulted in three different rows in the data frame for the same player, and we decided to use only one of the three rows to not have data with duplicate salaries, but outstandingly different player statistics in different teams.  
+
+This final data frame with the aggregated data was named `stats_salary_pos`, as displayed below:
+```{r}
+head(read.csv("./data/roster_salary_stats.csv"))
+```
+
+
+---
+
+## Exploratory Data Analysis: Player Statistics and Roster
+After data aggregation and cleaning, we were set to conduct data analysis to answer our research question: *Do the skills of a player correlate to his salary?*  
+
+First, we created a function `corr_eqn` which calcualted the correlation coefficient between two input numeric columns. This correlation equation would be used to show our correlation coefficent, and our linear regression line.  
+
+Then, we correlated the best skill suited for each position (as outlined below) with salary, creating a scatterplot which included the correlaiton coefficient and the linear regression line:
+* Point Guard: Assist
+* Center: Total Rebound
+* Small Forward: 3 Points Percentage
+* Power Forward: Total Rebound
+* Shooting Guard: Field Goal Percentage
+
+
+### Point Guard Correlation Plot:  
+```{r}
+point_guard <- final_roster[final_roster$Pos == 'PG', ]
+ggplot(point_guard, aes(x = point_guard$Salary, y = point_guard$AST)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = 'Salary in USD ($)', y = 'Assist') + 
+  scale_x_continuous(labels = dollar) + 
+  ggtitle('Point Guard Salary and Assist Correlation') +
+  geom_text(aes(x = 15000000, y = 400, 
+                label = corr_eqn(point_guard$AST,point_guard$Salary)), 
+            parse = TRUE, colour = "#ff0000")
+```
+
+### Center Correlation Plot:  
+```{r}
+center <- final_roster[final_roster$Pos == 'C',]
+ggplot(center, aes(x = center$Salary, y = center$TRB)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  scale_x_continuous(labels = dollar) + 
+  labs(x = 'Salary', y = 'Total Rebounds') +
+  ggtitle('Center Salary and Rebounds Correlation') +
+  geom_text(aes(x = 1.7e+07, y = 320, 
+                label = corr_eqn(center$ORB, center$Salary)), 
+            parse = TRUE, colour = "#ff0000")
+```
+
+### Small Forward Correlation Plot:  
+```{r}
+small_forward <- final_roster[final_roster$Pos == 'SF', ]
+ggplot(small_forward, aes(x = small_forward$Salary, 
+                          y = small_forward$X3P.)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = 'Salary', y = '3 Points Percentage') +
+  scale_x_continuous(labels = dollar) + 
+  ggtitle('Small Forward Salary and 3 Points Percentage Correlation') +
+  geom_text(aes(x = 1.5e+07, y = 0.3, 
+                label = corr_eqn(small_forward$X3P, small_forward$Salary)),
+            parse = TRUE, colour = "#ff0000")
+```
+
+### Power Forward Correlation Plot:  
+```{r}
+power_forward <- final_roster[final_roster$Pos == 'PF', ]
+ggplot(power_forward, aes(x = power_forward$Salary, y = power_forward$TRB)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = 'Salary', y = 'Total Rebounds') +
+  scale_x_continuous(labels = dollar) + 
+  ggtitle('Power Forward Salary and Total Rebounds Correlation') +
+  geom_text(aes(x = 1.5e+07, y = 500, 
+                label = corr_eqn(power_forward$TRB,power_forward$Salary)),
+            parse = TRUE, colour = "#ff0000")
+``` 
+  
+### Shooting Guard Correlation Plot:  
+```{r}
+shooting_guard <- final_roster[final_roster$Pos == 'SG', ]
+ggplot(shooting_guard, aes(x = shooting_guard$Salary, 
+                           y = shooting_guard$eFG.)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = 'Salary', y = 'Field Goal Percentage') +
+  scale_x_continuous(labels = dollar) + 
+  ggtitle('Shooting Guard Salary and Field Goal Percentage Correlation') +
+  geom_text(aes(x = 1.3e+07, y = 0.4, 
+                label = corr_eqn(shooting_guard$eFG., shooting_guard$Salary)),
+            parse = TRUE, colour = "#ff0000")
+```
+  
+## General Analysis
+These plots indicate mixed results. For example, it seems that point guard salary and the number of total assists are pretty well correlated (r = 0.73), whereas center salary and the total number of rebounds is extremely loosely correlated, with r = 0.27. Also, something noticeable are the effects of certain outliers in either salary (in $), or the skil that is being correlated with salary, differing per position. For example, in the Shooting Guard vs. Field Goal Percentage plot, there are outliers in both field goal percentage, and the salary. By excluding these outliers, the plot could have possibly had better correlation coefficient.  
+
+In addition, one must acknowledge that basketball is inherently a team sport. There are cases where the point guard gets many rebounds and scores many points (working as a dual-guard, for example), or when the center has a high field goal percentage because they simply don't shoot much, but make the correct shots that have a high percentage of scoring. In addition, while a player's worth is dependent on the relevant skillset of his position, his value does not only come from such aspect; it may come from his teamwork, leadership, experience, or many other traits he has as a person, and as a player.  
+
+Acknowledgeably there are many more aspects to analyze a player, but our data analysis shows an interesting fact: The relevant skillset to a position of a player, and his salary, does not necessarily correlate well with one another.
+
+-------
+
+# Part 2: Which college(s) produced the most NBA players in the 2014-2015 season?
+
+Now, we move on to the next part of our project, where we analyze colleges and the number of NBA players each institution has produced. Also, we will produce a map of institutions that have produced NBA players who are present in the 2014-15 season.  
+
+## Data Cleaning and Extraction
+
+### Downloading Data: US Colleges
+First, to create our desired map, we had to download US Colleges data so that we can get each institution's geographical data (longitude and latitude). This also posed a slight problem in that there was only a [URL](http://nces.ed.gov/ipeds/datacenter/data/HD2014.zip) to download the zip file that contained multiple csv files. Thus, we downloaded the zip file via URL, and put it in our rawdata directory.  
+
+Next, we unzipped the `US_colleges_raw.zip` file, selected the dataset we wanted, and selected the columns we wanted from that data set, which were: Institution name, Longitude, and Latitude. This data set was written as a new csv file, named `US_colleges.csv` in the data directory.  
+
+US_Colleges Data (Cleaned):
+```{r}
+head(read.csv("./data/US_colleges.csv"))
+```
+     
+### Merging Data: Roster and US Colleges
+Now, we will be using the `roster.csv` data set we cleaned in the previous part of the project, and merge it with US Colleges geographical data.  
+
+First, we made sure to not have duplicate of same player in different teams resulting from NBA trades during the season, by using the user-created function `unique_data` (refer to functions.r file for more documentation). Then, after cleaning the names of institutions, we merged the roster of players and the US Colleges geographical data, based on the colleges players attend.  
+
+However, a problem arose where US_Colleges data was too overarching, containing multiple branches of colleges in different locations. Thus, we had no choice but to hard-code and research individually which branch of college the players were from, or which branch was the main branch of the college.  
+
+Here is an example code:
+```{r, echo = T, eval = F}
+player_colleges$Longitude[pcc == "University of Tennessee"] <- 
+  US_colleges$Longitude[grep("(The University of Tennessee Knoxville)", usc)] 
+player_colleges$Latitude[pcc == "University of Tennessee"] <- 
+  US_colleges$Latitude[grep("(The University of Tennessee Knoxville)", usc)] 
+```
+
+After the tedious work, we were able to connect the geographical data of the right college branch, with the college in which NBA players played in during their college years. Lastly, for those players who did not play in college, we got rid of `NA`'s and put "No College/University" to prevent future potential problems.  
+
+The final merged dataset is displayed below:
+```{r}
+head(read.csv("./data/player_colleges.csv"))
+```
+
+## Exploratory Analysis
+With our data sets, we were able to analyze the top ten colleges that produced the most number of NBA players present in 2014-2015 season, by converting the merged dataset into a table where frequency of college can be counted. We merged this table with the preexisting data frame of `player_colleges`, merging based on College.  
+
+Then, We created a barchart through ggplot, indicating the number of players that graduated from these top ten institutions, for each institution:  
+
+The bar plot is displayed below:  
+
+```{r}
+ggplot(top_ten, aes(College, fill = College)) + 
+  geom_bar() +
+  coord_flip() +
+  labs(y = "Number of players") +
+  ggtitle("Top Ten Institutions with the Most NBA Players") +
+  theme(legend.position="none")
+```
+
+Next, we used the R package `maps` to pinpoint the locations of all institutions that produced NBA players present in the 2014-2015 season on a United States map.  
+
+The map is displayed below:  
+```{r}
+  ggplot(player_colleges, aes(Longitude, Latitude)) +
+    borders("state") +
+    geom_point(aes(mapping = Total_Players), colour = "#0000FF") +
+    ggtitle("Institutions that 2014-2015 NBA Players Attended") +
+    scale_size_area() +
+    theme(axis.line=element_blank(),
+          axis.text.x=element_blank(),
+          axis.text.y=element_blank(),
+          axis.ticks=element_blank(),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(), 
+          legend.position="none",
+          panel.background=element_blank(),
+          panel.border=element_blank(),
+          panel.grid.major=element_blank(), 
+          panel.grid.minor=element_blank(),
+          plot.background=element_blank())
+
+```
+
+## General Analysis
+As clearly shown, and as expected, the institutions regarded with the best basketball program in the country has produced the most NBA players still present in the 2014-2015 season. Thus, the top ten institutions does not include institutions that have recently began to rise up, upgrading its basketball program, because players still present were once a rookie 10-20 years ago, which implies that these institutions have consistently been producing great NBA players for 10-20 years. However, there are also Universities we don't really hear nowadays as the best, such as University of Florida and University of Connecticut. 
+
+The map, on the other hand, shows the diversity of colleges these NBA players come from. However, it is surprising to see that none of the institutions in the Mid-North Region, near North and South Dakota, have produced NBA players. NBA Player production is highly concentrated in the East Coast.
+
+------
+
+# Conclusion
+In conclusion, our project tried to answer two questions:  
+1. __In the 2014-2015 season, do the skills of a player correlate to his salary?__  
+2. __Which college(s) produced the most NBA players in the 2014-2015 season?__
+  
+We answered the first question by aggregating salary, position, and player statistics data, and creating a correlational graph between two variables: skills best identified with the positions, and salary. We were able to show a correlational coefficient, and a regression line for each position, and was able to demonstrate that there are many factors to determining a player's salary, or in other words, "worth" besides the skill most attributed to that player's position.  
+
+Then, we answered the second question through a barchart that clearly showed the top ten institutions that produced the most NBA players present in 2014-2015 season, and a map that displayed all the colleges NBA players present in 2014-2015 season are from through points. This part of the project was a little more straightforward, but equally important.  
+
+This project helped us gain better knowledge on NBA, NCAA colleges, and basketball in general. We hope that others feel the same as well, and hope to do further data analysis, to explore many other different aspects present in basketball.

@@ -1,12 +1,22 @@
-# Merging US Colleges and Roster data
+# Merging US Colleges and Roster data to see which players went to which 
+# University, and attach geographical data for map analysis
+# Output is a csv file with all of the above information
 
 library(dplyr)
-US_colleges <- read.csv("data/US_colleges.csv", stringsAsFactors = F)
-roster <- read.csv("data/roster.csv", stringsAsFactors = F, na.strings = NA)
 
-# Merging US Colleges and Player Colleges first by College names that match,
-# then removing '-' to match a couple more.
-player_colleges <- left_join(roster, US_colleges, by = "College")
+source("./code/gathering_cleaning_colleges.r")
+source("./code/functions.r")
+
+# Assume that when reader is reproducing project without all the 
+# cleaned data in the data folder already, the reader has ran 
+# cleaning_roster_and_stats.R file and has roster.csv file in data folder
+roster <- read.csv("./data/roster.csv", stringsAsFactors = F, na.strings = NA)
+
+# cleaning roster to only contain unique players (no repetition due to trade)
+# Check functions.r to see documentation of function unique_data
+keep <- unique_data(roster, "Player")
+roster <- roster[keep, ]
+
 US_colleges$College <- gsub("-", " ", US_colleges$College)
 player_colleges <- left_join(roster, US_colleges, by = "College")
 
@@ -222,4 +232,5 @@ for (i in 1:length(rownames(player_colleges))) {
   }
 }
 
+player_colleges$X.x <- NULL
 write.csv(player_colleges, "data/player_colleges.csv")

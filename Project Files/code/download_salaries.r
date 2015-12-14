@@ -1,7 +1,8 @@
-# This code is used to webscrape the player salaries data 
+# This code is used to webscrape the player salaries data from ESPN
+# Output is a csv of the raw data we scraped.
+
 library(rvest)
 
-# Getting the data from ESPN and creating an empty data frame
 webpage <- "http://espn.go.com/nba/salaries/_/year/2015/page/"
 salaries <- data.frame(stringsAsFactors = F)
 
