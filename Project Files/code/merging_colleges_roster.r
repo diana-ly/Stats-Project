@@ -40,10 +40,14 @@ player_colleges$Longitude[pcc == "Indiana University"] <-
 player_colleges$Latitude[pcc == "Indiana University"] <- 
   US_colleges$Latitude[grep("(Indiana University Bloomington)", usc)] 
 
-player_colleges$Longitude[pcc == "Indiana University-Purdue University Indianapolis"] <- 
-  US_colleges$Longitude[grep("(Indiana University Purdue University Indianapolis)", usc)] 
-player_colleges$Latitude[pcc == "Indiana University-Purdue University Indianapolis"] <- 
-  US_colleges$Latitude[grep("(Indiana University Purdue University Indianapolis)", usc)] 
+player_colleges$Longitude[pcc == "Indiana University-Purdue University 
+                          Indianapolis"] <- 
+  US_colleges$Longitude[grep("(Indiana University Purdue University 
+                             Indianapolis)", usc)] 
+player_colleges$Latitude[pcc == "Indiana University-Purdue University 
+                         Indianapolis"] <- 
+  US_colleges$Latitude[grep("(Indiana University Purdue University 
+                            Indianapolis)", usc)] 
 
 player_colleges$Longitude[pcc == "Louisiana State University"] <- 
   US_colleges$Longitude[grep("(Louisiana State University and)", usc)] 
@@ -56,9 +60,11 @@ player_colleges$Latitude[pcc == "New Mexico State University"] <-
   US_colleges$Latitude[grep("(New Mexico State University Main)", usc)] 
 
 player_colleges$Longitude[pcc == "North Carolina State University"] <- 
-  US_colleges$Longitude[grep("(North Carolina State University at Raleigh)", usc)] 
+  US_colleges$Longitude[grep("(North Carolina State University at Raleigh)", 
+                             usc)] 
 player_colleges$Latitude[pcc == "North Carolina State University"] <- 
-  US_colleges$Latitude[grep("(North Carolina State University at Raleigh)", usc)] 
+  US_colleges$Latitude[grep("(North Carolina State University at Raleigh)", 
+                            usc)] 
 
 player_colleges$Longitude[pcc == "Ohio State University"] <- 
   US_colleges$Longitude[grep("(Ohio State University Main)", usc)] 
@@ -120,9 +126,11 @@ player_colleges$Longitude[pcc == "University of Colorado"] <-
 player_colleges$Latitude[pcc == "University of Colorado"] <- 
   US_colleges$Latitude[grep("(University of Colorado Boulder)", usc)] 
 
-player_colleges$Longitude[pcc == "University of Illinois at Urbana-Champaign"] <- 
+player_colleges$Longitude[pcc == "University of Illinois at 
+                          Urbana-Champaign"] <- 
   US_colleges$Longitude[grep("(University of Illinois at Urbana)", usc)] 
-player_colleges$Latitude[pcc == "University of Illinois at Urbana-Champaign"] <- 
+player_colleges$Latitude[pcc == "University of Illinois at Urbana-
+                         Champaign"] <- 
   US_colleges$Latitude[grep("(University of Illinois at Urbana)", usc)] 
 
 player_colleges$Longitude[pcc == "University of Maryland"] <- 
@@ -151,9 +159,11 @@ player_colleges$Latitude[pcc == "University of New Mexico"] <-
   US_colleges$Latitude[grep("(University of New Mexico Main)", usc)] 
 
 player_colleges$Longitude[pcc == "University of North Carolina"] <- 
-  US_colleges$Longitude[grep("(University of North Carolina at Chapel Hill)", usc)] 
+  US_colleges$Longitude[grep("(University of North Carolina at Chapel Hill)", 
+                             usc)] 
 player_colleges$Latitude[pcc == "University of North Carolina"] <- 
-  US_colleges$Latitude[grep("(University of North Carolina at Chapel Hill)", usc)] 
+  US_colleges$Latitude[grep("(University of North Carolina at Chapel Hill)", 
+                            usc)] 
 
 player_colleges$Longitude[pcc == "University of Oklahoma"] <- 
   US_colleges$Longitude[grep("(University of Oklahoma Norman)", usc)] 

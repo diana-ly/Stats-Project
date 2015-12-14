@@ -5,7 +5,9 @@ output: html_document
 ``` {r, eval=F, echo=T}
 source("code/gathering_cleaning_colleges.r")
 
-This code uses ggplot2 to generate a barplot to compare the top ten colleges that produced the most NBA players. ggplot2 is also used to produce a U.S. map to visualize the locations of the institutions that NBA players attended.
+This code uses ggplot2 to generate a barplot to compare the top ten colleges 
+that produced the most NBA players. ggplot2 is also used to produce a U.S. 
+map to visualize the locations of the institutions that NBA players attended.
 
 library(ggplot2)
 library(dplyr)
