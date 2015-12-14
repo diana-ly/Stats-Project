@@ -7,7 +7,7 @@ Our project is based on information about the basketball players of the National
 
 2) __Do the skills of player relate to their salary?__
 
-R packages that used for data gathering, cleaning, and analysis are: 
+R packages that are used in this project are: 
 
 - __dplyr__
 - __ggplot__ 
